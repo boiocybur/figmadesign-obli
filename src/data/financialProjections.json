@@ -1,0 +1,43 @@
+{
+  "title": "Financial Projections",
+  "subtitle": "Financial projections are essential for planning and monitoring a company’s performance. They provide insights into potential revenue, expenses, and profitability over specific periods.",
+  "eyebrow": "Financial Tools",
+  "values": [
+    {
+      "icon": "cal",
+      "title": "The Balance Sheet",
+      "description": "The Balance Sheet is a summary of the assets and liabilities and equity of a business at a specific point of time.",
+      "link": {
+        "text": "Read More",
+        "url": "#"
+      }
+    },
+    {
+      "icon": "card",
+      "title": "Income Statement",
+      "description": "The Income (Profit and Loss) Statement, commonly referred to as the P&L statement, summarizes the revenue and expenses for a specific time period (one month, one quarter, one year, etc.).",
+      "link": {
+        "text": "Read More",
+        "url": "#"
+      }
+    },
+    {
+      "icon": "law",
+      "title": "Financial Plan",
+      "description": "Keep your information current and review the documents on a regular basis (monthly or more often if needed). Review them with key individuals within your company.",
+      "link": {
+        "text": "Read More",
+        "url": "#"
+      }
+    },
+    {
+      "icon": "money",
+      "title": "Financial Ratios",
+      "description": "Ratios are useful when comparing your company with the competition on financial performance and also when benchmarking the performance of your company.",
+      "link": {
+        "text": "Read More",
+        "url": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+/* Globale styles her */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
+:root {
+  view-transition-name: none;
+}

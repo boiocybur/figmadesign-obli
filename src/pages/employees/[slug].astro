@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from "astro";
+import employees from "@data/employees.json";
+import DynamicImage from "@components/helpers/DynamicImage.astro";
+import Layout from "@layouts/Layout.astro";
+
+// export async function getStaticPaths() {
+//   return employees.map((employee) => ({
+//     params: { slug: employee.slug },
+//     props: { employee },
+//   }));
+// }
+
+export const getStaticPaths = (() => {
+  return employees.map((employee) => ({
+    params: { slug: employee.slug },
+    props: { employee },
+  }));
+}) satisfies GetStaticPaths;
+
+const { employee } = Astro.props;
+---
+
+<Layout>
+  <a href="/">tilbage</a>
+  <section>
+    <DynamicImage
+      style={`view-transition-name: img-${employee.slug}`}
+      imagePath={employee.img}
+      altText=""
+    />
+    <h1 style={`view-transition-name: name-${employee.slug}`}>
+      {employee.name}
+    </h1>
+  </section>
+</Layout>
+
+<style>
+  section {
+    display: grid;
+    grid: auto / 1fr 1fr;
+    margin-inline: auto;
+    max-width: 1200px;
+  }
+  h1 {
+    font-size: 5rem;
+    width: fit-content;
+  }
+</style>

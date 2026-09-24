@@ -1,0 +1,28 @@
+{
+  "faq": [
+    {
+      "question": "What will happen when I’ve sent my application?",
+      "answer": "Once you’ve submitted your application, our team will review it and get back to you within 3-5 business days.\n\nYou will receive an email confirmation, and if we need additional information, we will reach out to you."
+    },
+    {
+      "question": "Can I get a free trial before I purchase?",
+      "answer": "Yes, we offer a 7-day free trial so you can explore all features before making a decision.\n\nIf you decide not to continue, you can cancel anytime before the trial ends to avoid charges."
+    },
+    {
+      "question": "What should I include in my personal statement?",
+      "answer": "Your personal statement should include a brief introduction about yourself, your skills, and why you are interested in this opportunity.\n\nMake sure to highlight relevant experience and what makes you a great fit."
+    },
+    {
+      "question": "Will membership plans be charged automatically?",
+      "answer": "Yes, all membership plans renew automatically on a monthly basis unless you cancel before your next billing date.\n\nYou can manage your subscription settings from your account dashboard."
+    },
+    {
+      "question": "How can I contact customer support?",
+      "answer": "You can reach our support team via email at support@example.com or through our live chat during business hours.\n\nWe aim to respond within 24 hours on weekdays."
+    },
+    {
+      "question": "Do you offer refunds?",
+      "answer": "We offer a 14-day money-back guarantee on all our plans.\n\nIf you are not satisfied, you can request a full refund within this period."
+    }
+  ]
+}

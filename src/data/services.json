@@ -1,0 +1,19 @@
+{
+  "services": [
+    {
+      "title": "Finance & Restructuring",
+      "description": "Unlock financial clarity and implement effective restructuring strategies.",
+      "buttonText": "Explore Finance"
+    },
+    {
+      "title": "Our Approach",
+      "description": "Explore our proven methods for achieving growth and building resilience through customized solutions.",
+      "buttonText": "Explore Approach"
+    },
+    {
+      "title": "Consultalk Result",
+      "description": "Experience actionable insights and measurable results through expert consultation and tailored guidance.",
+      "buttonText": "Explore Consultalk"
+    }
+  ]
+}

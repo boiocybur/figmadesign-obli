@@ -1,0 +1,15 @@
+---
+const { name, ...iconProps } = Astro.props;
+
+let IconComponent;
+try {
+  IconComponent = await import(`../../icons/${name}.svg`).then(
+    (module) => module.default,
+  );
+} catch (error) {
+  console.warn(`Icon "${name}" not found`);
+  IconComponent = null;
+}
+---
+
+{IconComponent && <IconComponent {...iconProps} />}

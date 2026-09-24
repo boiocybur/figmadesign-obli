@@ -1,0 +1,18 @@
+---
+import ServiceCard from "@components/ServiceCard.astro";
+import servicesData from "@data/services.json";
+import DynamicImage from "@helpers/DynamicImage.astro";
+---
+
+<div class="services">
+  {servicesData.services.map((service) => <ServiceCard service={service} />)}
+</div>
+
+<style>
+  @layer components {
+    .services {
+      display: grid;
+      gap: 1rem;
+    }
+  }
+</style>

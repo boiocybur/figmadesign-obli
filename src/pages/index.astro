@@ -1,0 +1,15 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Hero from "@components/Hero.astro";
+import EmployeeCard from "@components/EmployeeCard.astro";
+
+import employees from "@data/employees.json";
+console.log(employees[0].social_links[0]);
+---
+
+<Layout>
+  <!-- <Hero /> -->
+  <div>
+    {employees.map((employee) => <EmployeeCard {employee} />)}
+  </div>
+</Layout>

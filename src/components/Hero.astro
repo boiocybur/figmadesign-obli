@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import Services from "./Services.astro";
+import CEOImage from "@assets/images/ceo.webp";
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Empowering Your Business Growth</h1>
+    <p>
+      Discover tailored strategies and expert insights to take your business to
+      the next level. Let us help you navigate challenges and achieve
+      sustainable success.
+    </p>
+    <a href="#0">Book a Meeting</a>
+    <a href="#0">Learn More</a>
+  </div>
+  <Image src={CEOImage} alt="CEO" />
+
+  <Services />
+</section>
+
+<style>
+  /* Styles her */
+  @layer components {
+    .hero {
+      background-color: #f3f4f6;
+      padding: 2rem;
+    }
+  }
+</style>
