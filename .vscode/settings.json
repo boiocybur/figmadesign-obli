@@ -1,0 +1,15 @@
+{
+  "github.copilot.enable": {
+    "*": false
+  },
+  "git.branchProtection": ["main", "master"],
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  },
+  "editor.formatOnSave": true,
+  "chat.disableAIFeatures": false,
+  "chat.agent.enabled": false,
+  "editor.inlineSuggest.enabled": false,
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "prettier.printWidth": 80
+}

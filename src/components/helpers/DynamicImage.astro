@@ -1,0 +1,37 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import type { LocalImageProps } from "astro:assets";
+import type { HTMLAttributes } from "astro/types";
+
+type ImageOptions = Pick<
+  LocalImageProps,
+  "width" | "height" | "format" | "quality" | "priority" | "layout"
+>;
+
+type Props = Omit<HTMLAttributes<"img">, "src" | "alt" | "width" | "height"> &
+  ImageOptions & {
+    src: string;
+    alt: string;
+  };
+
+const { src, ...imgProps } = Astro.props as Props;
+
+// Use import.meta.glob to dynamically import images from the data/images folder
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/data/images/*.{jpeg,jpg,png,gif,webp}",
+);
+
+// Check if the image path exists in our glob
+const image = images[src];
+
+if (!image) {
+  throw new Error(
+    `"${src}" does not exist in glob: "/src/data/images/*.{jpeg,jpg,png,gif,webp}"`,
+  );
+}
+
+const importedImage = await image();
+---
+
+<Image src={importedImage.default} {...imgProps} />

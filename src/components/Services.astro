@@ -1,0 +1,21 @@
+---
+//@ts-nocheck
+import ServiceCard from "@components/ServiceCard.astro";
+
+const serviceData = await fetch("https://ftk-api.pages.dev/services").then(
+  (res) => res.json(),
+);
+---
+
+<div class="services">
+  {serviceData.map((service) => <ServiceCard service={service} />)}
+</div>
+
+<style>
+  @layer components {
+    .services {
+      display: grid;
+      gap: 1rem;
+    }
+  }
+</style>

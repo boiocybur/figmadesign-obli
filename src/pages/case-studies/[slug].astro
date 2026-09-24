@@ -1,0 +1,93 @@
+---
+//@ts-nocheck
+import { getCaseStudies } from "@lib/api";
+import { Image } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const caseStudies = await getCaseStudies();
+
+  return caseStudies.map((caseStudy) => ({
+    params: { slug: caseStudy.slug },
+    props: { caseStudy },
+  }));
+}
+
+const { caseStudy } = Astro.props;
+const { caseName, category, date, image, buttonLabel } = caseStudy.caseDetails;
+---
+
+<Layout>
+  <article class="case-story-article">
+    <header>
+      <Image
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+      />
+      <div class="case-details">
+        <dl>
+          <div>
+            <dt>Case Name</dt>
+            <dd>{caseName}</dd>
+          </div>
+          <div>
+            <dt>Category</dt>
+            <dd class="category">{category}</dd>
+          </div>
+          <div>
+            <dt>Date</dt>
+            <dd class="date">{date}</dd>
+          </div>
+        </dl>
+        <a href="#0" class="button">{buttonLabel}</a>
+      </div>
+    </header>
+    <section class="case-story-content">
+      {
+        caseStudy.sections.map((section, index) => (
+          <>
+            {index === 0 ? (
+              <h2>{section.title}</h2>
+            ) : (
+              <h3>{section.title}</h3>
+            )}
+
+            {Array.isArray(section.content) ? (
+              <>
+                {section.content.map((item) => (
+                  <p>{item}</p>
+                ))}
+              </>
+            ) : (
+              <p>{section.content}</p>
+            )}
+            {section.highlights && (
+              <ul>
+                {section.highlights.map((highlight) => (
+                  <li>{highlight}</li>
+                ))}
+              </ul>
+            )}
+            {section.image && (
+              <figure>
+                <Image
+                  src={section.image.src}
+                  alt={section.image.alt}
+                  width={section.image.width}
+                  height={section.image.height}
+                />
+                {section.image.caption && (
+                  <figcaption>{section.image.caption}</figcaption>
+                )}
+              </figure>
+            )}
+          </>
+        ))
+      }
+    </section>
+  </article>
+</Layout>
+
+<style></style>

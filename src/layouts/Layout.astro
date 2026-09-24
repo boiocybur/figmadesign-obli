@@ -1,0 +1,24 @@
+---
+import "@styles/main.css";
+import { Font } from "astro:assets";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>DIN TITEL HER. MÅSKE SOM PROP?</title>
+    <Font cssVariable="--font-cabin" preload />
+    <Font cssVariable="--font-lato" preload />
+    <style is:inline>
+      @layer reset, global, tokens, components, overrides;
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style></style>

@@ -1,0 +1,10 @@
+{
+  "title": "More than 25 years of experience",
+  "subtitle": "3000+ our clients are insured around the World",
+  "eyebrow": "Experience",
+  "stats": [
+    { "label": "Consistency", "value": 85 },
+    { "label": "Improvement", "value": 95 },
+    { "label": "Branching", "value": 90 }
+  ]
+}

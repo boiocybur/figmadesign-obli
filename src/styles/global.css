@@ -1,0 +1,11 @@
+/* Globale styles her */
+
+html {
+  font-family: var(--font-lato);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-cabin);
+}

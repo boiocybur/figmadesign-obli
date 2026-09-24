@@ -1,0 +1,40 @@
+:root {
+  /* ==== Colors ==== */
+  /* PRIMITIVES */
+  --color-yellow-500: #ffcc4a;
+  --color-green-400: #a4eda4;
+  --color-neutrals-50: #f9fafb;
+  --color-neutrals-200: #eaedf1;
+  --color-neutrals-900: #030712;
+  --color-neutrals-700: #5a606f;
+  --color-blue-700: #101828;
+  --color-blue-700-transparent: rgba(16 24 40 / 0.9);
+  --color-green-600: #4bb84b;
+  --color-neutrals-100: #f9fafb;
+  --color-neutrals-400: #99a1af;
+  --color-yellow-600: #fbc336;
+
+  /* TOKENS */
+  --color-action: var(--color-yellow-500);
+  --color-text: var(--color-neutrals-900);
+  --color-text-muted: var(--color-neutrals-700);
+  --color-surface-primary: #ffffff;
+  --color-surface-secondary: var(--color-neutrals-50);
+  --color-surface-tertiary: var(--color-neutrals-200);
+  --color-surface-elevated: var(--color-blue-700);
+  --color-surface-elevated-transparent: var(--color-blue-700-transparent);
+  --color-ui-secondary: var(--color-green-400);
+  --color-ui-secondary-alternative: var(--color-green-600);
+  --color-on-surface-elevated: var(--color-neutrals-50);
+  --color-ui-primary: var(--color-neutrals-900);
+  --color-on-ui-primary: var(--color-neutrals-50);
+  --color-text-weak: var(--color-neutrals-400);
+  --color-surface-highlight: var(--color-yellow-600);
+  --color-on-ui-primary-muted: var(--color-neutrals-400);
+}
+
+/* ==== Spacing ==== */
+
+/* ==== Typography ==== */
+
+/* ==== Border Radii ==== */

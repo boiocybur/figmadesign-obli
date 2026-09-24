@@ -1,0 +1,51 @@
+---
+import ArrowRight from "@icons/arrow--right.svg";
+import ArrowLeft from "@icons/arrow-left.svg";
+import Bars from "@icons/bars.svg";
+import Cal from "@icons/cal.svg";
+import Card from "@icons/card.svg";
+import Checkmark from "@icons/checkmark.svg";
+import Clock from "@icons/clock.svg";
+import Gear from "@icons/gear.svg";
+import Globe from "@icons/globe.svg";
+import Law from "@icons/law.svg";
+import Layers from "@icons/layers.svg";
+import Money from "@icons/money.svg";
+import Phone from "@icons/phone.svg";
+import Pin from "@icons/pin.svg";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout>
+  <h1>Eksempler på, hvordan man indlejrer ikoner</h1>
+
+  <div class="icon-grid">
+    <ArrowRight />
+    <ArrowLeft />
+    <Bars class="bars" />
+    <Cal />
+    <Card />
+    <Checkmark />
+    <Clock />
+    <Gear />
+    <Globe width={64} height={64} />
+    <Law />
+    <Layers />
+    <Money />
+    <Phone />
+    <Pin />
+  </div>
+</Layout>
+<style>
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .bars {
+    color: red;
+  }
+</style>
