@@ -1,0 +1,73 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <p class="logo">
+    <span class="logo-light">Ask</span><span class="logo-accent">Experts</span>
+  </p>
+
+  <p class="copyright">&copy;{year} Consultalk. All rights reserved</p>
+
+  <nav class="legal-links">
+    <a href="/terms">Terms of Service</a>
+    <span aria-hidden="true">|</span>
+    <a href="/privacy">Privacy Policy</a>
+  </nav>
+</footer>
+
+<style>
+  @layer components {
+    .site-footer {
+      background-color: var(--color-neutrals-900);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 4rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-family: Cabin;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .logo-light {
+      color: #fff;
+    }
+
+    .logo-accent {
+      color: var(--color-yellow-500);
+    }
+
+    .copyright {
+      font-family: Lato;
+      font-size: 0.9rem;
+      color: var(--color-neutrals-400);
+    }
+
+    .legal-links {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: Lato;
+      font-size: 0.9rem;
+    }
+
+    .legal-links a {
+      color: var(--color-neutrals-400);
+      text-decoration: none;
+    }
+
+    .legal-links a:hover {
+      color: #fff;
+    }
+
+    .legal-links span {
+      color: var(--color-neutrals-400);
+    }
+  }
+</style>

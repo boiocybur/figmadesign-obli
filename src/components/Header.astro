@@ -1,0 +1,138 @@
+---
+import LoginPopover from "./LoginPopover.astro";
+
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Team", href: "/team" },
+  { label: "About", href: "/about" },
+];
+
+const currentPath = Astro.url.pathname;
+
+const isActive = (href) => {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+};
+---
+
+<header class="site-header">
+  <a href="/" class="logo">
+    <span class="logo-light">Ask</span><span class="logo-accent">Experts</span>
+  </a>
+
+  <nav class="main-nav">
+    <ul>
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={["nav-link", { active: isActive(item.href) }]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <button
+    type="button"
+    popovertarget="login-popover"
+    popovertargetaction="toggle"
+    class="login-btn"
+    style="anchor-name: --login-anchor;"
+  >
+    Login
+  </button>
+
+  <LoginPopover />
+</header>
+
+<style>
+  @layer components {
+    .site-header {
+      background-color: var(--color-neutrals-900);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-family: Cabin;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .logo-light {
+      color: #fff;
+    }
+
+    .logo-accent {
+      color: var(--color-yellow-500);
+    }
+
+    .main-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-link {
+      font-family: Lato;
+      font-size: 0.95rem;
+      color: var(--color-neutrals-400);
+      text-decoration: none;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+
+    .nav-link.active {
+      color: #fff;
+      border-bottom-color: #fff;
+    }
+
+    .login-btn {
+      background-color: #fff;
+      color: var(--color-neutrals-900);
+      font-family: Lato;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 10px 24px;
+      border-radius: 42px;
+      text-decoration: none;
+    }
+
+    .login-btn:hover {
+      background-color: var(--color-neutrals-100, #f2f2f2);
+    }
+
+    @media (max-width: 768px) {
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .main-nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+    }
+  }
+</style>

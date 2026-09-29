@@ -1,0 +1,120 @@
+---
+
+---
+
+<section class="newsletter">
+  <span class="badge">Stay Updated</span>
+
+  <h2>Subscribe Our Newsletter</h2>
+
+  <p>
+    Build stronger Customer Relationships with
+    <span class="highlight">Consultalk</span>
+  </p>
+
+  <form class="newsletter-form">
+    <input type="email" name="email" placeholder="your mail address" required />
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<style>
+  @layer components {
+    .newsletter {
+      background-color: var(--color-neutrals-900);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      color: var(--color-yellow-500);
+      font-family: "Montserrat", sans-serif;
+      padding: 1rem;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 147.5%; /* 23.6px */
+      letter-spacing: 2.32px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-family: Cabin;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+      color: var(--color-on-ui-primary, var(--color-neutrals-50));
+    }
+
+    .newsletter p {
+      font-family: Lato;
+      font-size: 0.95rem;
+      color: var(--color-neutrals-400);
+      margin: 0 0 1.75rem;
+    }
+
+    .highlight {
+      color: var(--color-yellow-500);
+      font-weight: 600;
+    }
+
+    .newsletter-form {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      max-width: 480px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 20px;
+      border-radius: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: transparent;
+      color: #fff;
+      font-family: Lato;
+      font-size: 0.9rem;
+    }
+
+    .newsletter-form input::placeholder {
+      color: var(--color-neutrals-400);
+    }
+
+    .newsletter-form input:focus {
+      outline: none;
+      border-color: var(--color-yellow-500);
+    }
+
+    .newsletter-form button {
+      background-color: var(--color-yellow-500);
+      color: var(--color-neutrals-900);
+      border: none;
+      border-radius: 42px;
+      padding: 14px 28px;
+      font-family: Lato;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .newsletter-form button:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 500px) {
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .newsletter-form button {
+        width: 100%;
+      }
+    }
+  }
+</style>

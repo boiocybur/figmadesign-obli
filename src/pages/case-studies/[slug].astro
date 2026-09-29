@@ -19,6 +19,15 @@ const { caseName, category, date, image, buttonLabel } = caseStudy.caseDetails;
 
 <Layout>
   <article class="case-story-article">
+    <div class="case-intro">
+      <span class="eyebrow">Case Studies</span>
+      <h1>{caseName}</h1>
+      <p>
+        Our achievements reflect the close collaboration between our expert
+        teams and our esteemed clientele. We cultivate a workplace that
+        champions peak performance and guarantees client satisfaction.
+      </p>
+    </div>
     <header>
       <Image
         src={image.src}
@@ -90,4 +99,166 @@ const { caseName, category, date, image, buttonLabel } = caseStudy.caseDetails;
   </article>
 </Layout>
 
-<style></style>
+<style>
+  @layer components {
+    .case-story-article {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* --- Top intro (eyebrow, titel, undertekst) --- */
+    .case-intro {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .case-intro .eyebrow {
+      display: block;
+      font-family: "Monstserrat", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-neutrals-400);
+      margin-bottom: 0.75rem;
+    }
+
+    .case-intro h1 {
+      font-family: Cabin;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 1rem;
+      color: var(--color-neutrals-900);
+    }
+
+    .case-intro p {
+      font-family: Lato;
+      font-size: 0.95rem;
+      color: var(--color-neutrals-400);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* --- Hero billede + overlappende detail-card --- */
+    header {
+      position: relative;
+      margin-bottom: 5rem;
+    }
+
+    header img {
+      width: 100%;
+      border-radius: 16px;
+      display: block;
+    }
+
+    .case-details {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translate(-50%, 50%);
+      width: min(90%, 700px);
+      background-color: var(--color-neutrals-900);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .case-details dl {
+      display: flex;
+      gap: 2.5rem;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    .case-details dt {
+      font-family: Lato;
+      font-size: 0.7rem;
+      color: var(--color-neutrals-400);
+      margin-bottom: 0.25rem;
+    }
+
+    .case-details dd {
+      font-family: Lato;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      margin: 0;
+    }
+
+    .case-details .button {
+      background-color: var(--color-yellow-500);
+      color: var(--color-neutrals-900);
+      font-family: Lato;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 10px 22px;
+      border-radius: 42px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* --- Indholds-sektioner --- */
+    .case-story-content h2 {
+      font-family: Cabin;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0 0 1rem;
+      color: var(--color-neutrals-900);
+    }
+
+    .case-story-content h3 {
+      font-family: Cabin;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--color-neutrals-900);
+    }
+
+    .case-story-content p {
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--color-neutrals-600, #555);
+      margin-bottom: 1rem;
+     
+    }
+
+    .case-story-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .case-story-content ul li {
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.9rem;
+      color: var(--color-neutrals-600, #555);
+      padding-left: 1.75rem;
+      position: relative;
+    }
+
+    .case-story-content figure {
+      margin: 2rem 0;
+    }
+
+    .case-story-content figure img {
+      width: 100%;
+      border-radius: 16px;
+      display: block;
+    }
+
+    .case-story-content figcaption {
+      font-family: Lato;
+      font-size: 0.8rem;
+      color: var(--color-neutrals-400);
+      margin-top: 0.75rem;
+    }
+  }
+  </style>

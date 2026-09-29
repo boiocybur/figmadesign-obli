@@ -1,6 +1,9 @@
 ---
 import "@styles/main.css";
 import { Font } from "astro:assets";
+import Footer from "@components/footer.astro";
+import Newsletter from "@components/Newsletter.astro";
+import Header from "@components/Header.astro";
 ---
 
 <html lang="en">
@@ -17,7 +20,10 @@ import { Font } from "astro:assets";
     </style>
   </head>
   <body>
+    <Header />
     <slot />
+    <Newsletter />
+    <Footer />
   </body>
 </html>
 

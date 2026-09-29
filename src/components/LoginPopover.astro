@@ -1,0 +1,152 @@
+<div id="login-popover" popover class="login-popover">
+  <h2>Dashboard Login</h2>
+  <form class="login-form">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="email" />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" />
+    </div>
+    <button type="submit" class="submit-btn">Go to dashboard</button>
+  </form>
+</div>
+
+<style>
+  @layer components {
+    .login-popover {
+      position: fixed;
+      position-anchor: --login-anchor;
+      position-area: bottom span-left;
+      margin-top: 12px;
+      width: 320px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      border: none;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      transform: translateY(-8px) scale(0.98);
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        overlay 0.25s allow-discrete,
+        display 0.25s allow-discrete;
+    }
+
+    .login-popover::backdrop {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .login-popover:popover-open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    @starting-style {
+      .login-popover:popover-open {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+      }
+    }
+
+    .login-popover h2 {
+      font-family: Cabin;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 1.5rem;
+      color: #111;
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .form-group label {
+      display: block;
+      font-family: Lato;
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: #333;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #d9d9d9;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: var(--color-yellow-500);
+      color: var(--color-neutrals-900);
+      border: none;
+      border-radius: 42px;
+      padding: 12px 0;
+      font-weight: 600;
+      font-family: Lato;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    /* Staggered animation af elementerne, når popover åbnes */
+    .login-popover:popover-open h2 {
+      animation: fade-in-up 0.3s ease forwards;
+      animation-delay: 0.05s;
+    }
+    .login-popover:popover-open .form-group:nth-of-type(1) {
+      animation: fade-in-up 0.3s ease forwards;
+      animation-delay: 0.12s;
+    }
+    /* Elementerne starter skjult */
+.login-popover h2,
+.login-popover .form-group,
+.login-popover .submit-btn {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Animer elementerne ind forskudt */
+.login-popover:popover-open h2,
+.login-popover:popover-open .form-group,
+.login-popover:popover-open .submit-btn {
+  animation: fade-in-up 0.35s ease forwards;
+}
+
+.login-popover:popover-open h2 {
+  animation-delay: 0.05s;
+}
+
+.login-popover:popover-open .form-group:nth-of-type(1) {
+  animation-delay: 0.12s;
+}
+
+.login-popover:popover-open .form-group:nth-of-type(2) {
+  animation-delay: 0.19s;
+}
+
+.login-popover:popover-open .submit-btn {
+  animation-delay: 0.26s;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
