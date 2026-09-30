@@ -20,7 +20,7 @@ const { caseName, category, date, image, buttonLabel } = caseStudy.caseDetails;
 <Layout>
   <article class="case-story-article">
     <div class="case-intro">
-      <span class="eyebrow">Case Studies</span>
+      <span class="eyebrow">CASE STUDIES</span>
       <h1>{caseName}</h1>
       <p>
         Our achievements reflect the close collaboration between our expert
@@ -101,164 +101,273 @@ const { caseName, category, date, image, buttonLabel } = caseStudy.caseDetails;
 
 <style>
   @layer components {
+  .case-story-article {
+    max-width: 900px;
+    margin-inline: auto;
+    padding: var(--space-9) var(--space-6) var(--space-11);
+
+  }
+
+  /* Intro */
+
+  .case-intro {
+    text-align: center;
+    margin-bottom: var(--space-9);
+  }
+
+  .case-intro .eyebrow {
+    display: block;
+  margin-bottom: var(--space-4);
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-label);
+
+  color: var(--color-text);
+  }
+
+  .case-intro h1 {
+  position: relative;
+  display: inline-block;
+
+  margin: 0 0 var(--space-7);
+
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+
+  color: var(--color-text);
+}
+
+.case-intro h1::after {
+  content: "";
+
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+
+  width: calc(50% + 50vw);
+  height: 6px;
+
+  background: var(--color-action);
+}
+
+  .case-intro p {
+  max-width: 480px;
+  margin: var(--space-6) auto 0;
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-body);
+
+  color: var(--color-text-muted);
+}
+
+
+  /* Hero */
+
+  header {
+    position: relative;
+    margin-bottom: var(--space-11);
+  }
+
+  header :global(img) {
+    display: block;
+    width: 100%;
+
+    border-radius: var(--radius-md);
+  }
+
+
+  /* Case details */
+
+  .case-details {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+
+    transform: translate(-50%, 50%);
+
+    width: min(90%, 700px);
+    padding: var(--space-6) var(--space-7);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+
+    background: var(--color-surface-elevated);
+    border-radius: var(--radius-md);
+  }
+
+  .case-details dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+
+    margin: 0;
+  }
+
+  .case-details dt {
+    margin-bottom: var(--space-1);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+
+    color: var(--color-on-ui-primary-muted);
+  }
+
+  .case-details dd {
+    margin: 0;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+
+    color: var(--color-on-surface-elevated);
+  }
+
+  .case-details .button {
+    padding: 10px 22px;
+
+    background: var(--color-action);
+    color: var(--color-text);
+
+    border-radius: var(--radius-pill);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+
+  /* Case article content */
+
+  .case-story-content {
+    --flow-space: var(--space-4);
+  }
+
+  .case-story-content > * {
+    margin-block: 0;
+  }
+
+  .case-story-content > * + * {
+    margin-block-start: var(--flow-space);
+  }
+
+  .case-story-content h2 {
+    --flow-space: var(--space-7);
+
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+
+    color: var(--color-text);
+  }
+
+  .case-story-content h3 {
+    --flow-space: var(--space-8);
+
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+
+    color: var(--color-text);
+  }
+
+  .case-story-content p {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+
+    color: var(--color-text-muted);
+  }
+
+  .case-story-content ul {
+    --flow-space: var(--space-6);
+
+    list-style: none;
+
+    display: grid;
+    gap: var(--space-3);
+
+    padding: 0;
+  }
+
+  .case-story-content li {
+    position: relative;
+
+    padding-left: var(--space-7);
+
+    font-family: var(--font-heading);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-body);
+
+    color: var(--color-text-muted);
+  }
+
+  .case-story-content li::before {
+    content: "•";
+
+    position: absolute;
+    left: 0;
+
+    font-weight: var(--font-weight-bold);
+  }
+
+  .case-story-content figure {
+    --flow-space: var(--space-7);
+  }
+
+  .case-story-content figure :global(img) {
+    display: block;
+    width: 100%;
+
+    border-radius: var(--radius-md);
+  }
+
+  .case-story-content figcaption {
+    margin-top: var(--space-3);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+
+    color: var(--color-text-weak);
+  }
+
+
+  /* Mobile */
+
+  @media (max-width: 650px) {
     .case-story-article {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
-    }
-
-    /* --- Top intro (eyebrow, titel, undertekst) --- */
-    .case-intro {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .case-intro .eyebrow {
-      display: block;
-      font-family: "Monstserrat", sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--color-neutrals-400);
-      margin-bottom: 0.75rem;
-    }
-
-    .case-intro h1 {
-      font-family: Cabin;
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 0 0 1rem;
-      color: var(--color-neutrals-900);
-    }
-
-    .case-intro p {
-      font-family: Lato;
-      font-size: 0.95rem;
-      color: var(--color-neutrals-400);
-      max-width: 480px;
-      margin: 0 auto;
-    }
-
-    /* --- Hero billede + overlappende detail-card --- */
-    header {
-      position: relative;
-      margin-bottom: 5rem;
-    }
-
-    header img {
-      width: 100%;
-      border-radius: 16px;
-      display: block;
+      padding-inline: var(--space-5);
     }
 
     .case-details {
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      transform: translate(-50%, 50%);
-      width: min(90%, 700px);
-      background-color: var(--color-neutrals-900);
-      border-radius: 16px;
-      padding: 1.5rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
+      position: relative;
+      left: auto;
+      bottom: auto;
+
+      width: 100%;
+      margin-top: var(--space-4);
+
+      transform: none;
     }
 
     .case-details dl {
-      display: flex;
-      gap: 2.5rem;
-      margin: 0;
-      flex-wrap: wrap;
+      gap: var(--space-5);
     }
 
-    .case-details dt {
-      font-family: Lato;
-      font-size: 0.7rem;
-      color: var(--color-neutrals-400);
-      margin-bottom: 0.25rem;
-    }
-
-    .case-details dd {
-      font-family: Lato;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #fff;
-      margin: 0;
-    }
-
-    .case-details .button {
-      background-color: var(--color-yellow-500);
-      color: var(--color-neutrals-900);
-      font-family: Lato;
-      font-weight: 600;
-      font-size: 0.85rem;
-      padding: 10px 22px;
-      border-radius: 42px;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    /* --- Indholds-sektioner --- */
-    .case-story-content h2 {
-      font-family: Cabin;
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin: 0 0 1rem;
-      color: var(--color-neutrals-900);
-    }
-
-    .case-story-content h3 {
-      font-family: Cabin;
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin: 2.5rem 0 1rem;
-      color: var(--color-neutrals-900);
-    }
-
-    .case-story-content p {
-      font-family: "Montserrat", sans-serif;
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: var(--color-neutrals-600, #555);
-      margin-bottom: 1rem;
-     
-    }
-
-    .case-story-content ul {
-      list-style: none;
-      padding: 0;
-      margin: 1.5rem 0;
-      display: grid;
-      gap: 0.75rem;
-    }
-
-    .case-story-content ul li {
-      font-family: "Montserrat", sans-serif;
-      font-size: 0.9rem;
-      color: var(--color-neutrals-600, #555);
-      padding-left: 1.75rem;
-      position: relative;
-    }
-
-    .case-story-content figure {
-      margin: 2rem 0;
-    }
-
-    .case-story-content figure img {
-      width: 100%;
-      border-radius: 16px;
-      display: block;
-    }
-
-    .case-story-content figcaption {
-      font-family: Lato;
-      font-size: 0.8rem;
-      color: var(--color-neutrals-400);
-      margin-top: 0.75rem;
+    header {
+      margin-bottom: var(--space-9);
     }
   }
+}
   </style>

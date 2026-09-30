@@ -1,30 +1,50 @@
 ---
 import "@styles/main.css";
 import { Font } from "astro:assets";
-import Footer from "@components/footer.astro";
-import Newsletter from "@components/Newsletter.astro";
+
 import Header from "@components/Header.astro";
+import Newsletter from "@components/Newsletter.astro";
+import Footer from "@components/footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "AskExperts",
+  description = "Expert business consulting and tailored strategies for sustainable growth.",
+} = Astro.props;
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description" content={description} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
     <meta name="generator" content={Astro.generator} />
-    <title>DIN TITEL HER. MÅSKE SOM PROP?</title>
+
+    <title>{title}</title>
+
     <Font cssVariable="--font-cabin" preload />
     <Font cssVariable="--font-lato" preload />
+
     <style is:inline>
       @layer reset, global, tokens, components, overrides;
     </style>
   </head>
+
   <body>
     <Header />
+
     <slot />
+
     <Newsletter />
+
     <Footer />
   </body>
 </html>
-
-<style></style>

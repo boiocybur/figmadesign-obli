@@ -1,7 +1,233 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import TeamMemberCard from "@components/TeamMemberCard.astro";
+import { getTeamMembers } from "@lib/api";
+
+const team = await getTeamMembers();
 ---
 
 <Layout>
-  <h1>Her skal TEAM-siden være</h1>
+  <main class="team-page">
+   <section class="team">
+  <span class="team-label">TEAM</span>
+
+  <h2>The Consultors</h2>
+
+  <p>
+    Our success stems from the synergy between dedicated teams and our
+    valued clients. We prioritize a company culture that fosters exceptional
+    productivity, ensures customer satisfaction.
+  </p>
+
+  
+</section>
+
+<section class="team-heading">
+    <div class="team-heading__content">
+      <h1>Meet Our Great Team</h1>
+
+      <p>
+        Welcome to our amazing team! We are a group of passionate individuals
+        dedicated to excellence and innovation. Each member brings unique
+        skills and experiences, working together to achieve our goals. Join us
+        as we embark on exciting projects and create lasting impacts.
+      </p>
+    </div>
+
+    <div>
+    <a href="#0" class="team-button">Join our team</a>
+    </div>
+  </section>
+
+
+    <section class="team-grid">
+  {
+    team.map((employee) => (
+      <TeamMemberCard employee={employee} />
+    ))
+  }
+</section>
+  </main>
 </Layout>
+
+<style>
+.team-page {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding: var(--space-10) var(--space-7) var(--space-11);
+}
+
+
+/* =========================
+   Team intro
+   ========================= */
+
+.team {
+  text-align: center;
+
+  padding: 35px var(--space-8) 55px;
+
+  background: var(--color-surface-primary);
+}
+
+.team-label {
+  display: block;
+  margin-bottom: var(--space-4);
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-label);
+
+  color: var(--color-text);
+}
+
+.team h2 {
+  position: relative;
+  display: inline-block;
+
+  margin: 0;
+
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+
+  color: var(--color-text);
+}
+
+.team h2::after {
+  content: "";
+
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+
+  width: calc(50% + 50vw);
+  height: 6px;
+
+  background: var(--color-action);
+}
+.team > p {
+  max-width: 700px;
+  margin: 45px auto 0;
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+
+  color: var(--color-text-muted);
+}
+
+
+/* =========================
+   Team heading
+   ========================= */
+
+.team-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-10);
+
+  margin-bottom: var(--space-8);
+}
+
+.team-heading__content {
+  max-width: 650px;
+}
+
+.team-heading h1 {
+  margin: 0 0 var(--space-3);
+
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+
+  color: var(--color-text);
+}
+
+.team-heading p {
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-body);
+
+  color: var(--color-text-muted);
+}
+
+.team-button {
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--space-4) var(--space-7);
+
+  border-radius: var(--radius-pill);
+
+  background: var(--color-ui-primary);
+  color: var(--color-on-ui-primary);
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+
+  text-decoration: none;
+}
+
+.team-button:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: var(--space-1);
+}
+
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-7);
+}
+
+
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 800px) {
+  .team-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .team-page {
+    padding-inline: var(--space-5);
+  }
+
+  .team {
+    padding: var(--space-7) 0 var(--space-10);
+  }
+
+  .team h2 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .team > p {
+    font-size: var(--font-size-base);
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

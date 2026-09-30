@@ -1,10 +1,689 @@
 ---
+import { Image } from "astro:assets";
+
 import Layout from "@layouts/Layout.astro";
+
+import FAQ from "@components/FAQ.astro";
+import TeamMemberCard from "@components/TeamMemberCard.astro";
+
+import DynamicIcon from "@helpers/DynamicIcon.astro";
+
+import { getCoreValues, getTeamMembers } from "@lib/api";
+
+import VisionImage from "@data/images/about-vision.webp";
+
+const coreValuesData = await getCoreValues();
+const team = await getTeamMembers();
 ---
 
 <Layout>
   <main>
-    <h1>About us</h1>
-    <!-- Byg sidens sektioner her med udgangspunkt i Figma-designet. -->
+      <section class="about">
+  <span class="about-label">ABOUT</span>
+
+  <h2>Igniting Innovation</h2>
+
+  <p>
+    Our strength lies in the collaboration between our talented teams and
+    esteemed clients. We cultivate a workplace that champions innovation,
+    promotes peak performance, and guarantees client satisfaction.
+  </p>
+</section>
+
+<section class="vision">
+  <div class="vision-content">
+    <div class="vision-text">
+      <span class="vision-label">OUR VISION</span>
+
+      <h2>Turn your ideas into reality.</h2>
+
+      <p>
+        Capitalize on low hanging fruit to identify a ballpark value added
+        activity beta test. Override the digital divide with additional from
+        DevOps.
+      </p>
+
+      <ul>
+        <li>
+          Bring to the table win-win survival strategies to ensure proactive
+          domination. At the end of the day.
+        </li>
+
+        <li>
+          Capitalize on low hanging fruit to identify a ballpark value added
+          activity to beta test override the digital.
+        </li>
+      </ul>
+    </div>
+
+    <div class="vision-image">
+      <!-- Brug det korrekte billede fra assets her -->
+      <Image src={VisionImage} alt="Team collaborating around a table" />
+    </div>
+  </div>
+
+  <div class="vision-stats">
+    <div class="stat">
+      <strong>1128+</strong>
+      <span>Successful Work</span>
+    </div>
+
+    <div class="stat">
+      <strong>908+</strong>
+      <span>Team member</span>
+    </div>
+
+    <div class="stat">
+      <strong>258+</strong>
+      <span>Happy Customers</span>
+    </div>
+
+    <div class="stat">
+      <strong>564+</strong>
+      <span>Creative Idea</span>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="values-heading">
+    <div>
+      <span class="values-label">GROWING WITH OUR CLIENTS</span>
+
+      <h2>Our core values & principles</h2>
+
+      <p>
+        Capitalize on low hanging fruit to identify a ballpark value added
+        activity beta test. Override the digital divide with additional from
+        DevOps.
+      </p>
+    </div>
+    
+
+    <a href="#" class="contact-button">
+      Get in touch
+    </a>
+  </div>
+
+
+  <div class="values-grid">
+    {
+      coreValuesData.values.map((value) => (
+        <article class="value-card">
+          <div class="value-icon">
+            <DynamicIcon
+              name={value.icon}
+              width={24}
+              height={24}
+            />
+          </div>
+
+          <h3>{value.title}</h3>
+
+          <p>{value.description}</p>
+
+          <a href={value.link.url}>
+            {value.link.text}
+            <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      ))
+    }
+  </div>
+  
+</section>
+
+<section class="about-team">
+  <div class="about-team__intro">
+    <span class="about-team__label">OUR TEAM</span>
+
+    <h2>We champion<br />the bold</h2>
+
+    <p>
+      Our success stems from the synergy between dedicated teams and our
+      valued clients. We prioritize a company culture that fosters exceptional
+      productivity, ensures customer satisfaction.
+    </p>
+
+    <a href="/team" class="team-button">Meet the Team</a>
+  </div>
+
+  <div class="about-team__members">
+    {
+      team.slice(0, 2).map((employee) => (
+        <TeamMemberCard employee={employee} compact />
+      ))
+    }
+  </div>
+</section>
   </main>
+
+<FAQ />
 </Layout>
+<style>
+  .about {
+    overflow: hidden;
+    text-align: center;
+
+    padding: 55px var(--space-8);
+
+    background: var(--color-surface-secondary);
+  }
+
+  .about-label {
+    display: block;
+  margin-bottom: var(--space-4);
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-label);
+
+  color: var(--color-text);
+  }
+
+  .about h2 {
+    position: relative;
+    display: inline-block;
+
+    margin: 0;
+
+    font-family: var(--font-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+
+    color: var(--color-text);
+  }
+
+  .about h2::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+
+    width: 100vw;
+    height: 6px;
+
+    background: var(--color-action);
+  }
+
+  .about p {
+    max-width: 650px;
+    margin: 42px auto 0;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-regular);
+    line-height: 1.45;
+
+    color: var(--color-text-muted);
+  }
+
+
+  /* =========================
+     Vision
+     ========================= */
+
+  .vision {
+    padding: var(--space-11) var(--space-8);
+
+    background: var(--color-surface-primary);
+  }
+
+  .vision-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    gap: var(--space-10);
+
+    max-width: var(--content-width);
+    margin-inline: auto;
+  }
+
+  .vision-text {
+    max-width: 600px;
+  }
+
+  .vision-label {
+    display: block;
+
+    margin-bottom: var(--space-4);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    letter-spacing: var(--letter-spacing-label);
+
+    color: var(--color-text);
+  }
+
+  .vision h2 {
+    margin: 0 0 var(--space-4);
+
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+
+    color: var(--color-text);
+  }
+
+  .vision-text > p {
+    margin: 0 0 var(--space-6);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-body);
+
+    color: var(--color-text-muted);
+  }
+
+
+  /* Vision checklist */
+
+  .vision ul {
+    display: grid;
+    gap: var(--space-5);
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .vision li {
+    position: relative;
+
+    padding-left: var(--space-7);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-body);
+
+    color: var(--color-text-muted);
+  }
+
+  .vision li::before {
+    content: "✓";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: grid;
+    place-items: center;
+
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid var(--color-ui-secondary-alternative);
+    border-radius: var(--radius-round);
+
+    color: var(--color-ui-secondary-alternative);
+
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+  }
+
+
+  /* Vision image */
+
+  .vision-image {
+    position: relative;
+  }
+
+  .vision-image::before {
+    content: "";
+
+    position: absolute;
+    top: -14px;
+    right: -18px;
+    z-index: 0;
+
+    width: 110px;
+    height: 110px;
+
+    border-radius: var(--radius-md);
+
+    background: var(--color-ui-secondary);
+  }
+
+  .vision-image :global(img) {
+    position: relative;
+    z-index: 1;
+
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    border-radius: var(--radius-md);
+  }
+
+
+  /* Vision statistics */
+
+  .vision-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-7);
+
+    max-width: 950px;
+    margin: var(--space-10) auto 0;
+
+    text-align: center;
+  }
+
+  .stat {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .stat strong {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+
+    color: var(--color-text);
+  }
+
+  .stat span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+
+    color: var(--color-text-muted);
+  }
+
+
+  /* =========================
+     Core values
+     ========================= */
+
+  .values {
+    padding: 70px var(--space-8);
+
+    background: var(--color-surface-secondary);
+  }
+
+  .values-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-8);
+
+    max-width: var(--content-width);
+    margin: 0 auto 36px;
+  }
+
+  .values-heading > div {
+    max-width: 600px;
+  }
+
+  .values-label {
+    display: block;
+
+    margin-bottom: 14px;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    letter-spacing: var(--letter-spacing-label);
+
+    color: var(--color-text);
+  }
+
+  .values-heading h2 {
+    margin: 0 0 var(--space-3);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+
+    color: var(--color-text);
+  }
+
+  .values-heading p {
+    margin: 0;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-body);
+
+    color: var(--color-text-muted);
+  }
+
+
+  /* Core values button */
+
+  .contact-button {
+    flex-shrink: 0;
+
+    padding: 14px 30px;
+
+    border-radius: var(--radius-pill);
+
+    background: var(--color-ui-primary);
+    color: var(--color-on-ui-primary);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+
+    text-decoration: none;
+  }
+
+
+  /* Core values cards */
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-7);
+
+    max-width: var(--content-width);
+    margin-inline: auto;
+  }
+
+  .value-card {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 300px;
+    padding: 28px 22px;
+
+    border: 1px solid var(--color-surface-tertiary);
+    border-radius: var(--radius-md);
+
+    background: var(--color-surface-primary);
+  }
+
+  .value-icon {
+    display: grid;
+    place-items: center;
+
+    width: 46px;
+    height: 46px;
+    margin-bottom: 22px;
+
+    border-radius: var(--radius-round);
+
+    background: var(--color-ui-primary);
+    color: var(--color-on-ui-primary);
+  }
+
+  .value-card h3 {
+    margin: 0 0 var(--space-3);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+
+    color: var(--color-text);
+  }
+
+  .value-card p {
+    margin: 0 0 18px;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    line-height: 1.55;
+
+    color: var(--color-text-muted);
+  }
+
+  .value-card > a {
+    margin-top: auto;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .value-card > a span {
+    margin-left: 5px;
+  }
+
+
+  /* =========================
+     Team
+     ========================= */
+
+  .about-team {
+    display: grid;
+    grid-template-columns: 0.8fr 1.5fr;
+    gap: var(--space-10);
+
+    max-width: var(--content-width);
+    margin-inline: auto;
+    padding: var(--space-11) var(--space-8);
+  }
+
+  .about-team__intro {
+    max-width: 360px;
+  }
+
+  .about-team__label {
+    display: block;
+
+    margin-bottom: var(--space-4);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    letter-spacing: var(--letter-spacing-label);
+
+    color: var(--color-text);
+  }
+
+  .about-team__intro h2 {
+    margin: 0 0 var(--space-4);
+
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+
+    color: var(--color-text);
+  }
+
+  .about-team__intro p {
+    margin: 0 0 var(--space-6);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-body);
+
+    color: var(--color-text-muted);
+  }
+
+  .team-button {
+    display: inline-flex;
+
+    padding: var(--space-3) var(--space-5);
+
+    border-radius: var(--radius-pill);
+
+    background: var(--color-ui-primary);
+    color: var(--color-on-ui-primary);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+
+    text-decoration: none;
+  }
+
+  .about-team__members {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+
+  /* =========================
+     Responsive
+     ========================= */
+
+  /* Tablet */
+
+  @media (max-width: 900px) {
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 800px) {
+    .vision-content {
+      grid-template-columns: 1fr;
+    }
+
+    .vision-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-team {
+      grid-template-columns: 1fr;
+    }
+  }
+
+
+  /* Mobile */
+
+  @media (max-width: 600px) {
+    .values {
+      padding: 55px var(--space-5);
+    }
+
+    .values-heading {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .values-heading h2 {
+      font-size: var(--font-size-xl);
+    }
+
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-team {
+      padding-inline: var(--space-5);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .vision {
+      padding: var(--space-10) var(--space-5);
+    }
+
+    .vision h2 {
+      font-size: var(--font-size-xl);
+    }
+
+    .vision-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-7) var(--space-4);
+    }
+  }
+</style>

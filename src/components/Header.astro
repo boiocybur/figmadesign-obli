@@ -16,7 +16,7 @@ const isActive = (href) => {
 };
 ---
 
-<header class="site-header">
+<header class="site-header" id="site-header">
   <a href="/" class="logo">
     <span class="logo-light">Ask</span><span class="logo-accent">Experts</span>
   </a>
@@ -50,89 +50,166 @@ const isActive = (href) => {
 
   <LoginPopover />
 </header>
-
 <style>
   @layer components {
     .site-header {
-      background-color: var(--color-neutrals-900);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 4rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-10);
+
+  background-color: var(--color-text);
+  color: var(--color-on-surface-elevated);
+
+  transform: translateY(0);
+  transition: transform 300ms ease;
+}
+
+.site-header.header-hidden {
+  transform: translateY(-100%);
+}
+
+    /* Logo */
 
     .logo {
-      font-family: Cabin;
-      font-size: 1.4rem;
-      font-weight: 700;
+      font-family: var(--font-body);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+
       text-decoration: none;
     }
 
     .logo-light {
-      color: #fff;
+      color: var(--color-on-surface-elevated);
     }
 
     .logo-accent {
-      color: var(--color-yellow-500);
+      color: var(--color-action);
     }
+
+
+    /* Navigation */
 
     .main-nav ul {
       display: flex;
-      list-style: none;
-      gap: 2rem;
+      flex-wrap: wrap;
+
+      gap: var(--space-7);
+
       margin: 0;
       padding: 0;
+
+      list-style: none;
     }
 
     .nav-link {
-      font-family: Lato;
-      font-size: 0.95rem;
-      color: var(--color-neutrals-400);
-      text-decoration: none;
-      padding-bottom: 4px;
-      border-bottom: 2px solid transparent;
-      transition:
-        color 0.2s ease,
-        border-color 0.2s ease;
-    }
+  padding-bottom: var(--space-2);
+
+  border-bottom: 3px solid transparent;
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+
+  color: var(--color-on-ui-primary-muted);
+  text-decoration: none;
+
+  transition:
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.nav-link.active {
+  color: var(--color-on-surface-elevated);
+  border-bottom-color: var(--color-action);
+}
 
     .nav-link:hover {
-      color: #fff;
+      color: var(--color-on-surface-elevated);
     }
 
-    .nav-link.active {
-      color: #fff;
-      border-bottom-color: #fff;
+
+    .nav-link:focus-visible {
+      outline: 2px solid var(--color-action);
+      outline-offset: var(--space-1);
     }
+
+
+    /* Login */
 
     .login-btn {
-      background-color: #fff;
-      color: var(--color-neutrals-900);
-      font-family: Lato;
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 10px 24px;
-      border-radius: 42px;
-      text-decoration: none;
+      padding: 10px var(--space-6);
+
+      border: 0;
+      border-radius: var(--radius-pill);
+
+      background-color: var(--color-surface-primary);
+      color: var(--color-text);
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+
+      cursor: pointer;
     }
 
     .login-btn:hover {
-      background-color: var(--color-neutrals-100, #f2f2f2);
+      background-color: var(--color-surface-tertiary);
     }
+
+    .login-btn:focus-visible {
+      outline: 2px solid var(--color-action);
+      outline-offset: var(--space-1);
+    }
+
+
+    /* Mobile */
 
     @media (max-width: 768px) {
       .site-header {
         flex-direction: column;
         align-items: flex-start;
+        transition: none;
+        padding-inline: var(--space-5);
       }
 
       .main-nav ul {
-        gap: 1rem;
-        flex-wrap: wrap;
+        gap: var(--space-4);
       }
     }
   }
 </style>
+<script>
+  const header = document.querySelector<HTMLElement>("#site-header");
+
+  let previousScrollY = window.scrollY;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!header) return;
+
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 0) {
+        // Øverst på siden
+        header.classList.remove("header-hidden");
+      } else if (currentScrollY > previousScrollY) {
+        // Scroll ned
+        header.classList.add("header-hidden");
+      } else if (currentScrollY < previousScrollY) {
+        // Scroll op
+        header.classList.remove("header-hidden");
+      }
+
+      previousScrollY = currentScrollY;
+    },
+    { passive: true },
+  );
+</script>

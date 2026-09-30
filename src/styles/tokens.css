@@ -1,40 +1,89 @@
 :root {
   /* ==== Colors ==== */
+
   /* PRIMITIVES */
   --color-yellow-500: #ffcc4a;
   --color-green-400: #a4eda4;
   --color-neutrals-50: #f9fafb;
+  --color-neutrals-100: #f9fafb;
   --color-neutrals-200: #eaedf1;
-  --color-neutrals-900: #030712;
+  --color-neutrals-400: #99a1af;
   --color-neutrals-700: #5a606f;
+  --color-neutrals-900: #030712;
   --color-blue-700: #101828;
   --color-blue-700-transparent: rgba(16 24 40 / 0.9);
   --color-green-600: #4bb84b;
-  --color-neutrals-100: #f9fafb;
-  --color-neutrals-400: #99a1af;
   --color-yellow-600: #fbc336;
 
-  /* TOKENS */
+  /* SEMANTIC COLOR TOKENS */
   --color-action: var(--color-yellow-500);
   --color-text: var(--color-neutrals-900);
   --color-text-muted: var(--color-neutrals-700);
+  --color-text-weak: var(--color-neutrals-400);
+
   --color-surface-primary: #ffffff;
   --color-surface-secondary: var(--color-neutrals-50);
   --color-surface-tertiary: var(--color-neutrals-200);
   --color-surface-elevated: var(--color-blue-700);
   --color-surface-elevated-transparent: var(--color-blue-700-transparent);
+  --color-surface-highlight: var(--color-yellow-600);
+
+  --color-ui-primary: var(--color-neutrals-900);
   --color-ui-secondary: var(--color-green-400);
   --color-ui-secondary-alternative: var(--color-green-600);
-  --color-on-surface-elevated: var(--color-neutrals-50);
-  --color-ui-primary: var(--color-neutrals-900);
+
   --color-on-ui-primary: var(--color-neutrals-50);
-  --color-text-weak: var(--color-neutrals-400);
-  --color-surface-highlight: var(--color-yellow-600);
   --color-on-ui-primary-muted: var(--color-neutrals-400);
+  --color-on-surface-elevated: var(--color-neutrals-50);
+
+
+  /* ==== Spacing ==== */
+
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-7: 2rem;     /* 32px */
+  --space-8: 2.5rem;   /* 40px */
+  --space-9: 3rem;     /* 48px */
+  --space-10: 4rem;    /* 64px */
+  --space-11: 5rem;    /* 80px */
+
+
+  /* ==== Typography ==== */
+
+  --font-body: "Lato", sans-serif;
+  --font-heading: "Montserrat", sans-serif;
+
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.25rem;    /* 20px */
+  --font-size-xl: 1.875rem;   /* 30px */
+  --font-size-2xl: 2.25rem;   /* 36px */
+  --font-size-3xl: 3rem;      /* 48px */
+
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.1;
+  --line-height-body: 1.5;
+  --line-height-relaxed: 1.6;
+
+  --letter-spacing-label: 0.125rem;
+
+
+  /* ==== Border Radii ==== */
+--radius-sm: 0.5rem;
+--radius-md: 1rem;
+--radius-lg: 1.25rem;
+--radius-round: 50%;
+--radius-pill: 999px;
+
+  /* ==== Layout ==== */
+
+  --content-width: 70.75rem; /* 1180px */
 }
-
-/* ==== Spacing ==== */
-
-/* ==== Typography ==== */
-
-/* ==== Border Radii ==== */

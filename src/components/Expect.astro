@@ -1,0 +1,211 @@
+---
+import { Image } from "astro:assets";
+import ExpectImage from "../data/images/what-to-expect.webp";
+
+---
+
+<section class="expect">
+  <div class="expect-inner">
+    <div class="expect-image">
+      <Image
+        src={ExpectImage}
+        alt="Business team working together"
+      />
+    </div>
+
+    <div class="expect-content">
+      <span class="expect-label">WE'LL WORK WITH YOU</span>
+
+      <h2>What To Expect</h2>
+
+      <p>
+        Our collaboration is built on transparency, efficiency, and measurable
+        results. Together, we create strategies tailored to your unique needs
+        and goals.
+      </p>
+
+      <ul>
+        <li>
+          Collaborate to build actionable strategies that drive sustainable
+          growth and deliver tangible outcomes.
+        </li>
+
+        <li>
+          Identify opportunities to optimize processes and implement impactful
+          solutions with measurable results.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .expect {
+      padding: var(--space-11) var(--space-8);
+
+      background: var(--color-surface-primary);
+    }
+
+    .expect-inner {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      align-items: center;
+      gap: var(--space-9);
+
+      max-width: var(--content-width);
+      margin-inline: auto;
+    }
+
+    /* Image */
+
+    .expect-image {
+      position: relative;
+    }
+
+    .expect-image::before {
+      content: "";
+
+      position: absolute;
+      top: -32px;
+      left: -32px;
+      z-index: 0;
+
+      width: 120px;
+      height: 120px;
+
+      border-radius: var(--radius-md);
+
+      background: var(--color-ui-secondary);
+    }
+
+    .expect-image :global(img) {
+      position: relative;
+      z-index: 1;
+
+      display: block;
+
+      width: 90%;
+      height: 300px;
+
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
+
+    /* Content */
+
+    .expect-content {
+      max-width: 500px;
+    }
+
+    .expect-label {
+      display: block;
+
+      margin-bottom: var(--space-3);
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-regular);
+      letter-spacing: var(--letter-spacing-label);
+
+      color: var(--color-text);
+    }
+
+    .expect-content h2 {
+      margin: 0 0 var(--space-4);
+
+      font-family: var(--font-heading);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+
+      color: var(--color-text);
+    }
+
+    .expect-content > p {
+      margin: 0 0 var(--space-6);
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-body);
+
+      color: var(--color-text-muted);
+    }
+
+    /* Checklist */
+
+    .expect-content ul {
+      display: grid;
+      gap: var(--space-5);
+
+      margin: 0;
+      padding: 0;
+
+      list-style: none;
+    }
+
+    .expect-content li {
+      position: relative;
+
+      padding-left: var(--space-7);
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-body);
+
+      color: var(--color-text-muted);
+    }
+
+    .expect-content li::before {
+      content: "✓";
+
+      position: absolute;
+      top: 2px;
+      left: 0;
+
+      display: grid;
+      place-items: center;
+
+      width: 16px;
+      height: 16px;
+
+      border: 1px solid var(--color-ui-secondary-alternative);
+      border-radius: var(--radius-round);
+
+      color: var(--color-ui-secondary-alternative);
+
+      font-size: 10px;
+      font-weight: var(--font-weight-bold);
+    }
+
+    /* Responsive */
+
+    @media (max-width: 800px) {
+      .expect-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .expect-content {
+        max-width: 650px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .expect {
+        padding: var(--space-10) var(--space-5);
+      }
+
+      .expect-image::before {
+        top: -16px;
+        left: -16px;
+
+        width: 80px;
+        height: 80px;
+      }
+
+      .expect-content h2 {
+        font-size: var(--font-size-xl);
+      }
+    }
+  }
+</style>

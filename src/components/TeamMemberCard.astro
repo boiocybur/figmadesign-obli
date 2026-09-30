@@ -1,0 +1,128 @@
+---
+import { Image } from "astro:assets";
+import DynamicIcon from "@helpers/DynamicIcon.astro";
+
+const { employee, compact = false } = Astro.props;
+---
+
+<article class:list={["team-card", { compact }]}>
+  <a class="member-link" href={`/team/${employee.slug}`}>
+    <Image
+      src={employee.image.src}
+      alt={employee.image.alt}
+      width={employee.image.width}
+      height={employee.image.height}
+    />
+
+    <div class="member-info">
+      <h3>{employee.name}</h3>
+      <p class="member-title">{employee.title}</p>
+    </div>
+  </a>
+
+  <p class="member-description">{employee.description}</p>
+
+  {
+    !compact && (
+      <div class="socials">
+        {employee.social_links.map((link) => (
+          <a href={link.url} aria-label={link.platform}>
+            <DynamicIcon name={link.icon} width={20} height={20} />
+          </a>
+        ))}
+      </div>
+    )
+  }
+</article>
+
+<style>
+  @layer components {
+    .team-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .member-link {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .member-link :global(img) {
+      display: block;
+      width: 100%;
+      height: auto;
+
+      border-radius: var(--radius-md);
+      object-fit: cover;
+    }
+
+    .member-info h3 {
+      margin: var(--space-4) 0 var(--space-2);
+
+      font-family: var(--font-heading);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+
+      color: var(--color-text);
+    }
+
+    .member-title,
+    .member-description {
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-body);
+
+      color: var(--color-text-muted);
+    }
+
+    .member-title {
+      margin: 0;
+    }
+
+    .member-description {
+      margin: var(--space-3) 0;
+    }
+
+    .socials {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .socials a {
+      color: var(--color-text);
+    }
+
+    /* Variant til About */
+
+    .team-card.compact {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      column-gap: var(--space-5);
+      align-items: center;
+    }
+
+    .team-card.compact .member-link {
+      display: contents;
+    }
+
+    .team-card.compact .member-link :global(img) {
+      grid-column: 1;
+      grid-row: 1 / 3;
+
+
+    }
+
+    .team-card.compact .member-info {
+      grid-column: 2;
+    }
+
+    .team-card.compact .member-info h3 {
+      margin: 0 0 var(--space-2);
+    }
+
+    .team-card.compact .member-description {
+      grid-column: 2;
+      margin: var(--space-2) 0 0;
+    }
+  }
+</style>

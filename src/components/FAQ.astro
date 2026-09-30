@@ -1,0 +1,197 @@
+---
+import { getFAQ } from "@lib/api";
+
+const faq = await getFAQ();
+---
+
+<section class="faq">
+  <div class="faq-header">
+    <p>FAQ</p>
+    <h2>Customer Questions</h2>
+  </div>
+
+  <div class="questions">
+    {
+      faq.map((item) => (
+        <details>
+          <summary>
+            <span>{item.question}</span>
+            <span class="icon" aria-hidden="true"></span>
+          </summary>
+
+          <div class="answer">
+            <p>{item.answer}</p>
+          </div>
+        </details>
+      ))
+    }
+  </div>
+</section>
+<style>
+  .faq {
+    max-width: 800px;
+    margin-inline: auto;
+    padding: var(--space-11) var(--space-6);
+  }
+
+  /* Header */
+
+  .faq-header {
+    text-align: center;
+    margin-bottom: var(--space-7);
+  }
+
+  .faq-header p {
+    margin: 0 0 var(--space-4);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+    letter-spacing: 0.15em;
+
+    color: var(--color-text);
+  }
+
+  .faq-header h2 {
+    margin: 0;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+
+    color: var(--color-text);
+  }
+
+
+  /* Questions */
+
+  details {
+    border-bottom: 1px solid var(--color-surface-tertiary);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+
+    padding: var(--space-5) 0;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+
+    color: var(--color-text);
+
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::marker {
+    content: "";
+  }
+
+
+  /* Plus / minus */
+
+  .icon {
+    position: relative;
+
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .icon::before,
+  .icon::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 14px;
+    height: 1px;
+
+    background: var(--color-text);
+
+    transform: translate(-50%, -50%);
+    transition: transform 200ms ease;
+  }
+
+  .icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  details[open] .icon::after {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+
+
+  /* Answer */
+
+  .answer p {
+    max-width: 650px;
+    margin: 0;
+    padding: 0 var(--space-8) var(--space-5) 0;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+
+    color: var(--color-text-muted);
+  }
+
+
+  /*
+   * Progressive enhancement:
+   * FAQ fungerer uden animation som standard.
+   * Browsere med interpolate-size får animation.
+   */
+
+  @supports (interpolate-size: allow-keywords) {
+    :global(html) {
+      interpolate-size: allow-keywords;
+    }
+
+    .answer {
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+
+      transition:
+        height 250ms ease,
+        opacity 200ms ease;
+    }
+
+    details[open] .answer {
+      height: auto;
+      opacity: 1;
+    }
+  }
+
+
+  /* Mobile */
+
+  @media (max-width: 600px) {
+    .faq {
+      padding: 56px var(--space-5);
+    }
+
+    .faq-header h2 {
+      font-size: var(--font-size-xl);
+    }
+
+    summary {
+      font-size: 15px;
+    }
+
+    .answer p {
+      padding-right: 0;
+    }
+  }
+</style>

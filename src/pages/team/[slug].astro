@@ -1,8 +1,8 @@
 ---
-//@ts-nocheck
 import { getTeamMembers } from "@lib/api";
 import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
+import DynamicIcon from "@helpers/DynamicIcon.astro";
 
 export async function getStaticPaths() {
   const team = await getTeamMembers();
@@ -17,14 +17,246 @@ const { employee } = Astro.props;
 ---
 
 <Layout>
-  <Image
-    src={employee.image.src}
-    alt={employee.image.alt}
-    width={employee.image.width}
-    height={employee.image.height}
-  />
-  <h2>{employee.name}</h2>
-  <p>{employee.description_long}</p>
-  <h3>Past Experience</h3>
-  <p>{employee.past_experience}</p>
+  <section class="member-page">
+    <a href="/team" class="back-button">
+      ← Back to team
+    </a>
+
+    <div class="member-content">
+      <div class="member-image">
+        <div class="green-box"></div>
+
+        <Image
+          src={employee.image.src}
+          alt={employee.image.alt}
+          width={employee.image.width}
+          height={employee.image.height}
+        />
+
+        <div class="socials">
+  {
+    employee.social_links?.map((social) => (
+      <a
+        href={social.url}
+        aria-label={social.platform}
+      >
+        <DynamicIcon
+          name={social.icon}
+          width={24}
+          height={24}
+        />
+      </a>
+    ))
+  }
+</div>
+      </div>
+
+      <div class="member-info">
+        <h1>{employee.name}</h1>
+        <h2>{employee.title}</h2>
+
+        <p>{employee.description_long}</p>
+
+        <hr />
+
+        <h3>Past experience</h3>
+        <p>{employee.past_experience}</p>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<style>.member-page {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding: 0 var(--space-7) var(--space-10);
+}
+
+
+/* Back button */
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+
+  margin: var(--space-2) 0 var(--space-9);
+  padding: var(--space-3) 22px;
+
+  background: var(--color-ui-primary);
+  color: var(--color-on-ui-primary);
+
+  border-radius: var(--radius-pill);
+
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+}
+
+
+/* Layout */
+
+.member-content {
+  display: grid;
+  grid-template-columns: minmax(280px, 460px) minmax(0, 1fr);
+  gap: clamp(var(--space-9), 7vw, 90px);
+
+  align-items: start;
+}
+
+
+/* Image */
+
+.member-image {
+  position: relative;
+  padding-left: var(--space-9);
+}
+
+.member-image :global(img) {
+  position: relative;
+  z-index: 2;
+
+  display: block;
+
+  width: 100%;
+  aspect-ratio: 0.95;
+  object-fit: cover;
+
+  border-radius: var(--radius-md);
+}
+
+.green-box {
+  position: absolute;
+  z-index: 1;
+
+  top: -38px;
+  left: 0;
+
+  width: 170px;
+  height: 135px;
+
+  background: var(--color-ui-secondary);
+
+  border-radius: var(--radius-md);
+}
+
+
+/* Social links */
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-5);
+
+  margin-top: var(--space-4);
+}
+
+.socials a {
+  display: flex;
+
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.socials a :global(svg) {
+  width: var(--space-6);
+  height: var(--space-6);
+}
+
+
+/* Member information */
+
+.member-info h1 {
+  margin: 0 0 var(--space-1);
+
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+
+  color: var(--color-text);
+}
+
+.member-info h2 {
+  margin: 0 0 34px;
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+
+  color: var(--color-text-muted);
+}
+
+.member-info p {
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+
+  color: var(--color-text-muted);
+}
+
+.member-info hr {
+  margin: 36px 0;
+
+  border: 0;
+  border-top: 1px solid var(--color-surface-tertiary);
+}
+
+.member-info h3 {
+  margin: 0 0 var(--space-3);
+
+  font-family: var(--font-body);
+  font-size: 26px;
+  font-weight: var(--font-weight-bold);
+
+  color: var(--color-text);
+}
+
+
+/* Tablet */
+
+@media (max-width: 850px) {
+  .member-content {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .member-image {
+    padding-left: 30px;
+  }
+
+  .green-box {
+    width: 130px;
+    height: 110px;
+  }
+}
+
+
+/* Mobile */
+
+@media (max-width: 650px) {
+  .member-page {
+    padding-inline: var(--space-5);
+  }
+
+  .back-button {
+    margin-bottom: var(--space-8);
+  }
+
+  .member-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .member-image {
+    max-width: 420px;
+    padding-left: var(--space-6);
+  }
+
+  .member-info h1 {
+    font-size: 2rem;
+  }
+}
+</style>
