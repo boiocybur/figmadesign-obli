@@ -1,0 +1,289 @@
+---
+import { Image } from "astro:assets";
+import MainImage from "../data/images/what-to-expect.webp";
+import TopImage from "../data/images/clap.webp";
+import BottomImage from "../data/images/clap2.webp";
+---
+
+<section class="contact">
+  <div class="contact__inner">
+    <div class="contact__content">
+      <p class="contact__eyebrow">PROCESS</p>
+      <h2>Contact Us. It’s Easy.</h2>
+      <p class="contact__intro">
+        Leverage agile frameworks to provide a robust synopsis for high level overviews.
+        Iterative approaches to corporate strategy foster collaborative.
+      </p>
+
+      <div class="contact__details">
+        <div class="contact__item">
+          <span class="contact__icon contact__icon--yellow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7.4 3.5 10 7.1 8.3 9.4a13.7 13.7 0 0 0 6.3 6.3l2.3-1.7 3.6 2.6c.5.4.7 1 .5 1.6l-.7 2.1c-.2.6-.8 1-1.4 1C10.1 21.3 2.7 13.9 2.7 5.1c0-.6.4-1.2 1-1.4L5.8 3c.6-.2 1.2 0 1.6.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div>
+            <span>Call Today</span>
+            <a href="tel:+1800100900">+1 800 100 900</a>
+          </div>
+        </div>
+
+        <div class="contact__item">
+          <span class="contact__icon contact__icon--green" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div>
+            <span>Monday To Friday</span>
+            <strong>9AM - 5PM</strong>
+          </div>
+        </div>
+
+        <div class="contact__item">
+          <span class="contact__icon contact__icon--gray" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 21s6-5.5 6-11a6 6 0 1 0-12 0c0 5.5 6 11 6 11Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="12" cy="10" r="2" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </span>
+          <div>
+            <span>USA Office</span>
+            <strong>195 Devonshire St Boston, MA<br />02110</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact__gallery" aria-label="Business collaboration">
+      <div class="contact__accent" aria-hidden="true"></div>
+
+      <div class="contact__image contact__image--main">
+        <Image src={MainImage} alt="Business professional in an office" />
+      </div>
+
+      <div class="contact__side">
+        <div class="contact__image contact__image--small">
+          <Image src={TopImage} alt="Colleagues working together" />
+        </div>
+        <div class="contact__image contact__image--small">
+          <Image src={BottomImage} alt="Team in a collaborative meeting" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .contact {
+      padding: var(--space-11) var(--space-8);
+      background: var(--color-surface-primary);
+    }
+
+    .contact__inner {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+      align-items: center;
+      gap: clamp(3rem, 7vw, 7.5rem);
+      max-width: var(--content-width);
+      margin-inline: auto;
+    }
+
+    .contact__content {
+      max-width: 28rem;
+    }
+
+    .contact__eyebrow {
+      margin: 0 0 var(--space-3);
+      font-family: var(--font-body);
+      font-size: var(--font-size-xs);
+      letter-spacing: var(--letter-spacing-label);
+      color: var(--color-text);
+    }
+
+    .contact h2 {
+      margin: 0 0 var(--space-4);
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3vw, var(--font-size-2xl));
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      color: var(--color-text);
+    }
+
+    .contact__intro {
+      max-width: 25rem;
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-relaxed);
+      color: var(--color-text-muted);
+    }
+
+    .contact__details {
+      display: grid;
+      gap: var(--space-7);
+      margin-top: var(--space-8);
+    }
+
+    .contact__item {
+      display: grid;
+      grid-template-columns: 2.75rem 1fr;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .contact__item > div {
+      display: grid;
+      gap: 0.1rem;
+    }
+
+    .contact__item span:not(.contact__icon) {
+      font-family: var(--font-body);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-muted);
+    }
+
+    .contact__item strong,
+    .contact__item a {
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.35;
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .contact__item a:hover {
+      text-decoration: underline;
+    }
+
+    .contact__icon {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      aspect-ratio: 1;
+      border-radius: var(--radius-round);
+    }
+
+    .contact__icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .contact__icon--yellow {
+      color: #d9a200;
+      background: #fff0bd;
+    }
+
+    .contact__icon--green {
+      color: var(--color-green-600);
+      background: var(--color-green-400);
+    }
+
+    .contact__icon--gray {
+      color: var(--color-text);
+      background: var(--color-surface-tertiary);
+    }
+
+    .contact__gallery {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.03fr) minmax(0, 1fr);
+      gap: var(--space-4);
+      min-height: 29rem;
+    }
+
+    .contact__accent {
+      position: absolute;
+      left: -3rem;
+      bottom: -1.5rem;
+      width: 10.5rem;
+      height: 8.8rem;
+      border-radius: var(--radius-md);
+      background: var(--color-ui-secondary);
+    }
+
+    .contact__side {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .contact__image {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+    }
+
+    .contact__image :global(img) {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .contact__image--main {
+      min-height: 29rem;
+    }
+
+    .contact__image--small {
+      min-height: 0;
+    }
+
+    @media (max-width: 900px) {
+      .contact__inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-10);
+      }
+
+      .contact__content {
+        max-width: 40rem;
+      }
+
+      .contact__gallery {
+        min-height: 25rem;
+      }
+
+      .contact__image--main {
+        min-height: 25rem;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .contact {
+        padding: var(--space-10) var(--space-5);
+      }
+
+      .contact__gallery {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .contact__side {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 12rem;
+      }
+
+      .contact__image--main {
+        min-height: 22rem;
+      }
+
+      .contact__accent {
+        left: -1rem;
+        bottom: -1rem;
+        width: 7rem;
+        height: 6rem;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .contact__side {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 13rem);
+      }
+    }
+  }
+</style>
