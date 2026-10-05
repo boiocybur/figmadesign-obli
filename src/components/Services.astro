@@ -1,29 +1,39 @@
 ---
-//@ts-nocheck
+// @ts-nocheck
 import ServiceCard from "@components/ServiceCard.astro";
+import { getServices } from "@lib/api";
 
-const serviceData = await fetch("https://ftk-api.pages.dev/services").then(
-  (res) => res.json(),
-);
+const services = await getServices();
 ---
 
 <div class="services">
-  {serviceData.map((service) => <ServiceCard service={service} />)}
+  {
+    services.map((service) => (
+      <ServiceCard service={service} />
+    ))
+  }
 </div>
 
 <style>
   @layer components {
     .services {
-  position: relative;
-  z-index: 2;
+      position: relative;
+      z-index: 2;
 
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
 
-  max-width: var(--content-width);
-  margin: calc(var(--space-10) * -1) auto 0;
-  padding-inline: var(--space-6);
-}
+      max-width: var(--content-width);
+      margin: calc(var(--space-10) * -1) auto 0;
+      padding-inline: var(--space-6);
+    }
+
+    @media (max-width: 800px) {
+      .services {
+        grid-template-columns: 1fr;
+        margin-top: calc(var(--space-7) * -1);
+      }
+    }
   }
 </style>

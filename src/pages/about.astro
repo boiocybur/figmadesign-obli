@@ -5,7 +5,7 @@ import Layout from "@layouts/Layout.astro";
 
 import FAQ from "@components/FAQ.astro";
 import TeamMemberCard from "@components/TeamMemberCard.astro";
-
+import CoreValues from "@components/CoreValues.astro";
 import DynamicIcon from "@helpers/DynamicIcon.astro";
 
 import { getCoreValues, getTeamMembers } from "@lib/api";
@@ -17,149 +17,101 @@ const team = await getTeamMembers();
 ---
 
 <Layout>
-  <main>
-      <section class="about">
-  <span class="about-label">ABOUT</span>
+  <section class="about">
+    <span class="about-label">ABOUT</span>
 
-  <h2>Igniting Innovation</h2>
-
-  <p>
-    Our strength lies in the collaboration between our talented teams and
-    esteemed clients. We cultivate a workplace that champions innovation,
-    promotes peak performance, and guarantees client satisfaction.
-  </p>
-</section>
-
-<section class="vision">
-  <div class="vision-content">
-    <div class="vision-text">
-      <span class="vision-label">OUR VISION</span>
-
-      <h2>Turn your ideas into reality.</h2>
-
-      <p>
-        Capitalize on low hanging fruit to identify a ballpark value added
-        activity beta test. Override the digital divide with additional from
-        DevOps.
-      </p>
-
-      <ul>
-        <li>
-          Bring to the table win-win survival strategies to ensure proactive
-          domination. At the end of the day.
-        </li>
-
-        <li>
-          Capitalize on low hanging fruit to identify a ballpark value added
-          activity to beta test override the digital.
-        </li>
-      </ul>
-    </div>
-
-    <div class="vision-image">
-      <!-- Brug det korrekte billede fra assets her -->
-      <Image src={VisionImage} alt="Team collaborating around a table" />
-    </div>
-  </div>
-
-  <div class="vision-stats">
-    <div class="stat">
-      <strong>1128+</strong>
-      <span>Successful Work</span>
-    </div>
-
-    <div class="stat">
-      <strong>908+</strong>
-      <span>Team member</span>
-    </div>
-
-    <div class="stat">
-      <strong>258+</strong>
-      <span>Happy Customers</span>
-    </div>
-
-    <div class="stat">
-      <strong>564+</strong>
-      <span>Creative Idea</span>
-    </div>
-  </div>
-</section>
-
-<section class="values">
-  <div class="values-heading">
-    <div>
-      <span class="values-label">GROWING WITH OUR CLIENTS</span>
-
-      <h2>Our core values & principles</h2>
-
-      <p>
-        Capitalize on low hanging fruit to identify a ballpark value added
-        activity beta test. Override the digital divide with additional from
-        DevOps.
-      </p>
-    </div>
-    
-
-    <a href="#" class="contact-button">
-      Get in touch
-    </a>
-  </div>
-
-
-  <div class="values-grid">
-    {
-      coreValuesData.values.map((value) => (
-        <article class="value-card">
-          <div class="value-icon">
-            <DynamicIcon
-              name={value.icon}
-              width={24}
-              height={24}
-            />
-          </div>
-
-          <h3>{value.title}</h3>
-
-          <p>{value.description}</p>
-
-          <a href={value.link.url}>
-            {value.link.text}
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-      ))
-    }
-  </div>
-  
-</section>
-
-<section class="about-team">
-  <div class="about-team__intro">
-    <span class="about-team__label">OUR TEAM</span>
-
-    <h2>We champion<br />the bold</h2>
+    <h2>Igniting Innovation</h2>
 
     <p>
-      Our success stems from the synergy between dedicated teams and our
-      valued clients. We prioritize a company culture that fosters exceptional
-      productivity, ensures customer satisfaction.
+      Our strength lies in the collaboration between our talented teams and
+      esteemed clients. We cultivate a workplace that champions innovation,
+      promotes peak performance, and guarantees client satisfaction.
     </p>
+  </section>
 
-    <a href="/team" class="team-button">Meet the Team</a>
-  </div>
+  <section class="vision">
+    <div class="vision-content">
+      <div class="vision-text">
+        <span class="vision-label">OUR VISION</span>
 
-  <div class="about-team__members">
-    {
-      team.slice(0, 2).map((employee) => (
-        <TeamMemberCard employee={employee} compact />
-      ))
-    }
-  </div>
-</section>
-  </main>
+        <h2>Turn your ideas into reality.</h2>
 
-<FAQ />
+        <p>
+          Capitalize on low hanging fruit to identify a ballpark value added
+          activity beta test. Override the digital divide with additional from
+          DevOps.
+        </p>
+
+        <ul>
+          <li>
+            Bring to the table win-win survival strategies to ensure proactive
+            domination. At the end of the day.
+          </li>
+
+          <li>
+            Capitalize on low hanging fruit to identify a ballpark value added
+            activity to beta test override the digital.
+          </li>
+        </ul>
+      </div>
+
+      <div class="vision-image">
+        <Image src={VisionImage} alt="Team collaborating around a table" />
+      </div>
+    </div>
+
+    <div class="vision-stats">
+      <div class="stat">
+        <strong>1128+</strong>
+        <span>Successful Work</span>
+      </div>
+
+      <div class="stat">
+        <strong>908+</strong>
+        <span>Team member</span>
+      </div>
+
+      <div class="stat">
+        <strong>258+</strong>
+        <span>Happy Customers</span>
+      </div>
+
+      <div class="stat">
+        <strong>564+</strong>
+        <span>Creative Idea</span>
+      </div>
+    </div>
+  </section>
+
+<CoreValues variant="default" />
+
+  <section class="about-team">
+    <div class="about-team__intro">
+      <span class="about-team__label">OUR TEAM</span>
+
+      <h2>We champion<br />the bold</h2>
+
+      <p>
+        Our success stems from the synergy between dedicated teams and our
+        valued clients. We prioritize a company culture that fosters exceptional
+        productivity, ensures customer satisfaction.
+      </p>
+
+      <a href="/team" class="team-button">Meet the Team</a>
+    </div>
+
+    <div class="about-team__members">
+      {
+        team.slice(0, 2).map((employee) => (
+          <TeamMemberCard employee={employee} compact />
+        ))
+      }
+    </div>
+  </section>
+
+  <FAQ />
 </Layout>
+
 <style>
   .about {
     overflow: hidden;
@@ -172,15 +124,15 @@ const team = await getTeamMembers();
 
   .about-label {
     display: block;
-  margin-bottom: var(--space-4);
+    margin-bottom: var(--space-4);
 
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-body);
-  letter-spacing: var(--letter-spacing-label);
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-body);
+    letter-spacing: var(--letter-spacing-label);
 
-  color: var(--color-text);
+    color: var(--color-text);
   }
 
   .about h2 {
@@ -221,7 +173,6 @@ const team = await getTeamMembers();
 
     color: var(--color-text-muted);
   }
-
 
   /* =========================
      Vision
@@ -280,7 +231,6 @@ const team = await getTeamMembers();
     color: var(--color-text-muted);
   }
 
-
   /* Vision checklist */
 
   .vision ul {
@@ -327,7 +277,6 @@ const team = await getTeamMembers();
     font-weight: var(--font-weight-bold);
   }
 
-
   /* Vision image */
 
   .vision-image {
@@ -362,7 +311,6 @@ const team = await getTeamMembers();
     border-radius: var(--radius-md);
   }
 
-
   /* Vision statistics */
 
   .vision-stats {
@@ -395,7 +343,6 @@ const team = await getTeamMembers();
 
     color: var(--color-text-muted);
   }
-
 
   /* =========================
      Core values
@@ -454,7 +401,6 @@ const team = await getTeamMembers();
     color: var(--color-text-muted);
   }
 
-
   /* Core values button */
 
   .contact-button {
@@ -472,7 +418,6 @@ const team = await getTeamMembers();
 
     text-decoration: none;
   }
-
 
   /* Core values cards */
 
@@ -546,7 +491,6 @@ const team = await getTeamMembers();
     margin-left: 5px;
   }
 
-
   /* =========================
      Team
      ========================= */
@@ -619,7 +563,6 @@ const team = await getTeamMembers();
     gap: var(--space-7);
   }
 
-
   /* =========================
      Responsive
      ========================= */
@@ -645,7 +588,6 @@ const team = await getTeamMembers();
       grid-template-columns: 1fr;
     }
   }
-
 
   /* Mobile */
 

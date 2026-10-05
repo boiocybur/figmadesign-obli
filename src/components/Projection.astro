@@ -1,0 +1,387 @@
+---
+import { getFinancialProjections } from "@lib/api";
+import DynamicIcon from "@helpers/DynamicIcon.astro";
+
+const financialData = await getFinancialProjections();
+---
+
+<section class="financial">
+  <div class="financial-inner">
+
+    <div class="financial-heading">
+      <div class="financial-heading__content">
+        <span class="financial-label">
+          {financialData.eyebrow}
+        </span>
+
+        <h2>{financialData.title}</h2>
+        <p>{financialData.subtitle}</p>
+      </div>
+
+      <div class="financial-controls">
+  <button
+    class="financial-arrow financial-arrow--prev"
+    type="button"
+    aria-label="Previous"
+  >
+    ←
+  </button>
+
+  <button
+    class="financial-arrow financial-arrow--next"
+    type="button"
+    aria-label="Next"
+  >
+    →
+  </button>
+</div>
+    </div>
+
+    <div class="financial-viewport">
+  <div class="financial-grid">
+    {
+      financialData.values.map((item) => (
+        <article class="financial-card">
+          <div class="financial-icon">
+            <DynamicIcon
+              name={item.icon}
+              width={24}
+              height={24}
+            />
+          </div>
+
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".financial").forEach((financial) => {
+    const grid =
+      financial.querySelector<HTMLElement>(".financial-grid");
+
+    const cards =
+      financial.querySelectorAll<HTMLElement>(".financial-card");
+
+    const nextButton =
+      financial.querySelector<HTMLButtonElement>(
+        ".financial-arrow--next"
+      );
+
+    const prevButton =
+      financial.querySelector<HTMLButtonElement>(
+        ".financial-arrow--prev"
+      );
+
+    if (!grid || cards.length === 0) return;
+
+    let currentIndex = 0;
+
+    function getVisibleCards() {
+      const value = getComputedStyle(grid)
+        .getPropertyValue("--cards-visible")
+        .trim();
+
+      return Number(value) || 4;
+    }
+
+    function getMaxIndex() {
+      return Math.max(0, cards.length - getVisibleCards());
+    }
+
+    function getScrollAmount() {
+      const card = cards[0];
+      const styles = getComputedStyle(grid);
+      const gap = parseFloat(styles.columnGap) || 0;
+
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function moveTo(index: number) {
+      const maxIndex = getMaxIndex();
+
+      if (index > maxIndex) {
+        currentIndex = 0;
+      } else if (index < 0) {
+        currentIndex = maxIndex;
+      } else {
+        currentIndex = index;
+      }
+
+      grid.scrollTo({
+        left: currentIndex * getScrollAmount(),
+        behavior: "smooth",
+      });
+    }
+
+    nextButton?.addEventListener("click", () => {
+      moveTo(currentIndex + 1);
+    });
+
+    prevButton?.addEventListener("click", () => {
+      moveTo(currentIndex - 1);
+    });
+
+    window.addEventListener("resize", () => {
+      const maxIndex = getMaxIndex();
+
+      if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+      }
+
+      grid.scrollTo({
+        left: currentIndex * getScrollAmount(),
+        behavior: "auto",
+      });
+    });
+  });
+</script>
+
+<style>
+  @layer components {
+    /* ========================================
+       Financial section
+    ======================================== */
+
+    .financial {
+      padding: var(--space-11) var(--space-8);
+
+      background: var(--color-surface-secondary);
+    }
+
+    .financial-inner {
+      max-width: var(--content-width);
+      margin-inline: auto;
+    }
+
+
+    /* ========================================
+       Heading
+    ======================================== */
+
+    .financial-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-8);
+
+      margin-bottom: var(--space-8);
+    }
+
+    .financial-heading__content {
+      max-width: 580px;
+    }
+
+    .financial-label {
+      display: block;
+
+      margin-bottom: var(--space-3);
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-body);
+      letter-spacing: var(--letter-spacing-label);
+      text-transform: uppercase;
+
+      color: var(--color-text);
+    }
+
+    .financial h2 {
+      margin: 0 0 var(--space-3);
+
+      font-family: var(--font-heading);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+
+      color: var(--color-text);
+    }
+
+    .financial-heading p {
+      margin: 0;
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-body);
+
+      color: var(--color-text-muted);
+    }
+
+
+    /* ========================================
+       Navigation
+    ======================================== */
+
+    .financial-controls {
+      display: flex;
+      flex-shrink: 0;
+      gap: var(--space-4);
+    }
+
+    .financial-arrow {
+      display: grid;
+      place-items: center;
+
+      width: 48px;
+      height: 48px;
+      padding: 0;
+
+      border: 0;
+      border-radius: var(--radius-round);
+
+      background: var(--color-ui-primary);
+      color: var(--color-on-ui-primary);
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-lg);
+
+      cursor: pointer;
+
+      transition:
+        transform 150ms ease,
+        opacity 150ms ease;
+    }
+
+    .financial-arrow:hover {
+      transform: scale(1.05);
+    }
+
+    .financial-arrow:active {
+      transform: scale(0.95);
+    }
+
+    .financial-arrow:focus-visible {
+      outline: 2px solid var(--color-action);
+      outline-offset: var(--space-1);
+    }
+
+
+    /* ========================================
+       Carousel
+    ======================================== */
+
+    .financial-viewport {
+      overflow: hidden;
+    }
+
+    .financial-grid {
+      --cards-visible: 4;
+      --card-gap: var(--space-6);
+
+      display: flex;
+      gap: var(--card-gap);
+
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+
+      scrollbar-width: none;
+    }
+
+    .financial-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    /* ========================================
+       Cards
+    ======================================== */
+
+    .financial-card {
+      flex: 0 0
+        calc(
+          (
+            100% -
+            (var(--card-gap) * (var(--cards-visible) - 1))
+          ) /
+          var(--cards-visible)
+        );
+
+      min-width: 0;
+      min-height: 220px;
+      padding: var(--space-6);
+
+      border-radius: var(--radius-md);
+
+      background: var(--color-surface-tertiary);
+
+      scroll-snap-align: start;
+    }
+
+    .financial-icon {
+      display: flex;
+      align-items: center;
+
+      min-height: 32px;
+      margin-bottom: var(--space-4);
+
+      color: var(--color-text);
+    }
+
+    .financial-card h3 {
+      margin: 0 0 var(--space-3);
+
+      font-family: var(--font-heading);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+
+      color: var(--color-text);
+    }
+
+    .financial-card p {
+      margin: 0;
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-body);
+
+      color: var(--color-text-muted);
+    }
+
+
+    /* ========================================
+       Tablet
+    ======================================== */
+
+    @media (max-width: 900px) {
+      .financial-grid {
+        --cards-visible: 2;
+      }
+    }
+
+
+    /* ========================================
+       Mobile
+    ======================================== */
+
+    @media (max-width: 600px) {
+      .financial {
+        padding: var(--space-10) var(--space-5);
+      }
+
+      .financial-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-6);
+      }
+
+      .financial h2 {
+        font-size: var(--font-size-xl);
+      }
+
+      .financial-grid {
+        --cards-visible: 1;
+      }
+    }
+  }
+</style>

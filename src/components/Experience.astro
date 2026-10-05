@@ -1,0 +1,299 @@
+---
+import { getExperience } from "@lib/api";
+
+const experienceData = await getExperience();
+---
+
+<section class="experience">
+  <div class="experience-inner">
+    <div class="experience-content">
+      <span class="experience-label">
+        {experienceData.eyebrow}
+      </span>
+
+      <h2>{experienceData.title}</h2>
+
+      <p>{experienceData.subtitle}</p>
+    </div>
+
+    <div class="experience-stats">
+      {
+        experienceData.stats.map((item) => (
+          <div
+            class="experience-stat"
+            data-percentage={item.value}
+          >
+            <div
+              class="experience-circle"   
+              style={`--percentage: ${item.value}`}
+            >
+              <span class="experience-number">
+                0%
+              </span>
+                <span class="experience-dot" aria-hidden="true"></span>
+
+            </div>
+
+            <span class="experience-stat__label">
+              {item.label}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const section =
+    document.querySelector<HTMLElement>(".experience");
+
+  if (section) {
+    const stats =
+      section.querySelectorAll<HTMLElement>(".experience-stat");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          stats.forEach((stat) => {
+            const target = Number(stat.dataset.percentage);
+
+            const number =
+              stat.querySelector<HTMLElement>(
+                ".experience-number"
+              );
+
+            const circle =
+              stat.querySelector<HTMLElement>(
+                ".experience-circle"
+              );
+
+            if (!number || !circle) return;
+
+            const duration = 1200;
+            const startTime = performance.now();
+
+            function animate(currentTime: number) {
+              const elapsed = currentTime - startTime;
+
+              const progress = Math.min(
+                elapsed / duration,
+                1
+              );
+
+              const value = Math.round(
+                target * progress
+              );
+
+              number.textContent = `${value}%`;
+
+              circle.style.setProperty(
+                "--percentage",
+                String(value)
+              );
+
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              }
+            }
+
+            requestAnimationFrame(animate);
+          });
+
+          observer.disconnect();
+        });
+      },
+      {
+        threshold: 0.25,
+      }
+    );
+
+    observer.observe(section);
+  }
+</script>
+
+<style>
+  @layer components {
+    .experience {
+      padding: var(--space-11) var(--space-8);
+
+      background: var(--color-action);
+      color: var(--color-text);
+    }
+
+    .experience-inner {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      align-items: center;
+      gap: var(--space-10);
+
+      max-width: var(--content-width);
+      margin-inline: auto;
+    }
+
+
+    /* Text */
+
+    .experience-content {
+      max-width: 360px;
+    }
+
+    .experience-label {
+      display: block;
+
+      margin-bottom: var(--space-4);
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-regular);
+      letter-spacing: var(--letter-spacing-label);
+      text-transform: uppercase;
+
+      color: var(--color-text);
+    }
+
+    .experience h2 {
+      margin: 0 0 var(--space-4);
+
+      font-family: var(--font-heading);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+
+      color: var(--color-text);
+    }
+
+    .experience-content p {
+      margin: 0;
+
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-body);
+
+      color: var(--color-text);
+    }
+
+
+    /* Statistics */
+
+    .experience-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+    }
+
+    .experience-stat {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-4);
+
+      text-align: center;
+    }
+
+    .experience-circle {
+  --percentage: 0;
+
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 140px;
+  aspect-ratio: 1;
+
+  border-radius: var(--radius-round);
+
+  background:
+    conic-gradient(
+      from 0deg,
+      var(--color-surface-primary)
+        calc(var(--percentage) * 1%),
+      rgb(255 255 255 / 0.35) 0
+    );
+}
+
+    .experience-circle::after {
+      content: "";
+
+      position: absolute;
+      inset: 4px;
+
+      border-radius: inherit;
+
+      background: var(--color-action);
+    }
+
+    .experience-number {
+      position: relative;
+      z-index: 1;
+
+
+      font-family: var(--font-heading);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+
+      color: var(--color-text);
+    }
+
+    .experience-stat__label {
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+
+      color: var(--color-text);
+    }
+
+    .experience-dot {
+    position: absolute;
+    z-index: 2;
+
+    top: 50%;
+    left: 50%;
+
+    width: 14px;
+    height: 14px;
+
+    border: 3px solid var(--color-surface-primary);
+    border-radius: var(--radius-round);
+
+    background: var(--color-ui-primary);
+
+    transform:
+        translate(-50%, -50%)
+        rotate(calc(var(--percentage) * 3.6deg))
+        translateY(-70px);
+
+    transform-origin: center;
+    }
+    /* Tablet */
+
+    @media (max-width: 900px) {
+      .experience-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-content {
+        max-width: 550px;
+      }
+    }
+
+
+    /* Mobile */
+
+    @media (max-width: 600px) {
+      .experience {
+        padding: var(--space-10) var(--space-5);
+      }
+
+      .experience-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .experience h2 {
+        font-size: var(--font-size-xl);
+      }
+    }
+  }
+</style>

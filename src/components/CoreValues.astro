@@ -1,0 +1,260 @@
+---
+import { getCoreValues } from "@lib/api";
+import DynamicIcon from "@helpers/DynamicIcon.astro";
+
+interface Props {
+  variant?: "default" | "alt";
+}
+
+const { variant = "default" } = Astro.props;
+
+const coreValuesData = await getCoreValues();
+---
+
+<section class:list={["values", `values--${variant}`]}>
+  <div class="values-heading">
+    <div>
+      <span class="values-label">
+        {coreValuesData.eyebrow}
+      </span>
+
+      <h2>{coreValuesData.title}</h2>
+      <p>{coreValuesData.subtitle}</p>
+    </div>
+
+    <a
+      href={coreValuesData.button.link}
+      class="contact-button"
+    >
+      {coreValuesData.button.text}
+    </a>
+  </div>
+
+  <div class="values-grid">
+    {
+      coreValuesData.values.map((value) => (
+        <article class="value-card">
+          <div class="value-icon">
+            <DynamicIcon
+              name={value.icon}
+              width={24}
+              height={24}
+            />
+          </div>
+
+          <h3>{value.title}</h3>
+          <p>{value.description}</p>
+
+          <a href={value.link.url}>
+            {value.link.text}
+            <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .values {
+    padding: 70px var(--space-8);
+    background: var(--color-surface-secondary);
+  }
+
+
+
+  .values-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-8);
+    max-width: var(--content-width);
+    margin: 0 auto 36px;
+  }
+
+  .values-heading > div {
+    max-width: 600px;
+  }
+
+  .values-label {
+    display: block;
+    margin-bottom: 14px;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    letter-spacing: var(--letter-spacing-label);
+    color: var(--color-text);
+  }
+
+  .values-heading h2 {
+    margin: 0 0 var(--space-3);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text);
+  }
+
+  .values-heading p {
+    margin: 0;
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-body);
+    color: var(--color-text-muted);
+  }
+
+  .contact-button {
+    flex-shrink: 0;
+    padding: 14px 30px;
+    border-radius: var(--radius-pill);
+
+    background: var(--color-ui-primary);
+    color: var(--color-on-ui-primary);
+
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-7);
+    max-width: var(--content-width);
+    margin-inline: auto;
+  }
+
+  .value-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    padding: 28px 22px;
+
+    border: 1px solid var(--color-surface-tertiary);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-primary);
+  }
+
+  .values--alt {
+  background: var(--color-ui-primary);
+  color: var(--color-on-ui-primary);
+    }
+
+    /* Heading */
+
+    .values--alt .values-label {
+    color: var(--color-on-surface-elevated);
+    }
+
+    .values--alt .values-heading h2 {
+    color: var(--color-on-surface-elevated);
+    }
+
+    .values--alt .values-heading p {
+    color: var(--color-on-ui-primary-muted);
+    }
+
+    /* Button */
+
+    .values--alt .contact-button {
+    background: var(--color-surface-primary);
+    color: var(--color-text);
+    }
+
+    /* Cards */
+
+    .values--alt .value-card {
+    background: var(--color-surface-secondary);
+    border-color: var(--color-surface-tertiary);
+    }
+
+    .values--alt .value-card h3 {
+    color: var(--color-text);
+    }
+
+    .values--alt .value-card p {
+    color: var(--color-text-muted);
+    }
+
+    .values--alt .value-card > a {
+    color: var(--color-text);
+    }
+
+    /* Icons */
+
+    .values--alt .value-icon {
+    background: var(--color-ui-primary);
+    color: var(--color-on-ui-primary);
+    }
+
+    .value-icon {
+        display: grid;
+        place-items: center;
+
+        width: 46px;
+        height: 46px;
+        margin-bottom: 22px;
+
+        border-radius: var(--radius-round);
+        background: var(--color-ui-primary);
+        color: var(--color-on-ui-primary);
+    }
+
+    .value-card h3 {
+        margin: 0 0 var(--space-3);
+
+        font-family: var(--font-body);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text);
+    }
+
+    .value-card p {
+        margin: 0 0 18px;
+
+        font-family: var(--font-body);
+        font-size: var(--font-size-sm);
+        line-height: 1.55;
+        color: var(--color-text-muted);
+    }
+
+    .value-card > a {
+        margin-top: auto;
+
+        font-family: var(--font-body);
+        font-size: var(--font-size-sm);
+        color: var(--color-text);
+        text-decoration: none;
+    }
+
+    .value-card > a span {
+        margin-left: 5px;
+    }
+
+    @media (max-width: 900px) {
+        .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .values {
+        padding: 55px var(--space-5);
+        }
+
+        .values-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        }
+
+        .values-heading h2 {
+        font-size: var(--font-size-xl);
+        }
+
+        .values-grid {
+        grid-template-columns: 1fr;
+        }
+    }
+    </style>

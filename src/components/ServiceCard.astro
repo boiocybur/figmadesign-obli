@@ -3,7 +3,7 @@ const { service } = Astro.props;
 import ArrowRight from "@icons/arrow--right.svg";
 ---
 
-<article>
+<article class="service-card">
   <h2>{service.title}</h2>
 
   <p>{service.description}</p>
@@ -16,83 +16,66 @@ import ArrowRight from "@icons/arrow--right.svg";
 
 <style>
   @layer components {
-  article {
-  background: var(--color-surface-elevated-transparent);
-  color: var(--color-on-surface-elevated);
+    .service-card {
+      display: flex;
+      flex-direction: column;
 
-  padding: var(--space-7);
-  border-radius: var(--radius-md);
+      padding: var(--space-7);
 
-  backdrop-filter: blur(4px);
-}
+      border-radius: var(--radius-md);
 
-article h2 {
-  margin: 0 0 var(--space-3);
-
-  font-family: var(--font-heading);
-  font-size: var(--font-size-lg);
-}
-
-article p {
-  margin: 0 0 var(--space-6);
-
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-body);
-
-  color: var(--color-on-ui-primary-muted);
-}
-
-article a {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-
-  margin-top: auto;
-
-  color: var(--color-action);
-
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-
-  text-decoration: underline;
-}
-
-    h2 {
+      background: var(--color-surface-elevated-transparent);
       color: var(--color-on-surface-elevated);
+
+      backdrop-filter: blur(4px);
+    }
+
+    .service-card h2 {
+      margin: 0 0 var(--space-3);
+
       font-family: var(--font-heading);
+      font-size: var(--font-size-lg);
       font-weight: var(--font-weight-bold);
+
+      color: var(--color-on-surface-elevated);
     }
 
-    p {
-      color: var(--color-on-ui-primary-muted);
+    .service-card p {
+      margin: 0 0 var(--space-6);
+
       font-family: var(--font-body);
+      font-size: var(--font-size-sm);
       line-height: var(--line-height-body);
+
+      color: var(--color-on-ui-primary-muted);
     }
 
-    a {
+    .service-card a {
       display: inline-flex;
       align-items: center;
+      align-self: flex-start;
       gap: var(--space-2);
 
-      color: var(--color-action);
+      margin-top: auto;
 
       font-family: var(--font-body);
+      font-size: var(--font-size-sm);
       font-weight: var(--font-weight-bold);
+
+      color: var(--color-action);
       text-decoration: none;
     }
 
-    a :global(svg) {
+    .service-card a :global(svg) {
       inline-size: 16px;
       flex-shrink: 0;
     }
 
-    a:hover {
+    .service-card a:hover {
       text-decoration: underline;
     }
 
-    a:focus-visible {
+    .service-card a:focus-visible {
       outline: 2px solid var(--color-action);
       outline-offset: var(--space-1);
     }
