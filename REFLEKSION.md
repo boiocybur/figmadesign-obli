@@ -1,6 +1,6 @@
 # Refleksion – Figma til kode
 
-**Gruppemedlemmer:** Skriv begge navne her.
+**Gruppemedlemmer: Jesper Deetho Jessen, Lezam Idrizi.
 
 ## Sådan bruger I filen
 
