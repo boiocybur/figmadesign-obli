@@ -5,61 +5,63 @@ import DynamicIcon from "@helpers/DynamicIcon.astro";
 const financialData = await getFinancialProjections();
 ---
 
-<section class="financial">
-  <div class="financial-inner">
+<div class="financial-container">
+  <section class="financial">
+    <div class="financial-inner">
 
-    <div class="financial-heading">
-      <div class="financial-heading__content">
-        <span class="financial-label">
-          {financialData.eyebrow}
-        </span>
+      <div class="financial-heading">
+        <div class="financial-heading__content">
+          <span class="financial-label">
+            {financialData.eyebrow}
+          </span>
 
-        <h2>{financialData.title}</h2>
-        <p>{financialData.subtitle}</p>
+          <h2>{financialData.title}</h2>
+          <p>{financialData.subtitle}</p>
+        </div>
+
+        <div class="financial-controls">
+          <button
+            class="financial-arrow financial-arrow--prev"
+            type="button"
+            aria-label="Previous"
+          >
+            ←
+          </button>
+
+          <button
+            class="financial-arrow financial-arrow--next"
+            type="button"
+            aria-label="Next"
+          >
+            →
+          </button>
+        </div>
       </div>
 
-      <div class="financial-controls">
-  <button
-    class="financial-arrow financial-arrow--prev"
-    type="button"
-    aria-label="Previous"
-  >
-    ←
-  </button>
+      <div class="financial-viewport">
+        <div class="financial-grid">
+          {
+            financialData.values.map((item) => (
+              <article class="financial-card">
+                <div class="financial-icon">
+                  <DynamicIcon
+                    name={item.icon}
+                    width={24}
+                    height={24}
+                  />
+                </div>
 
-  <button
-    class="financial-arrow financial-arrow--next"
-    type="button"
-    aria-label="Next"
-  >
-    →
-  </button>
-</div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
     </div>
-
-    <div class="financial-viewport">
-  <div class="financial-grid">
-    {
-      financialData.values.map((item) => (
-        <article class="financial-card">
-          <div class="financial-icon">
-            <DynamicIcon
-              name={item.icon}
-              width={24}
-              height={24}
-            />
-          </div>
-
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-        </article>
-      ))
-    }
-  </div>
+  </section>
 </div>
-
-  </div>
-</section>
 
 <script>
   document.querySelectorAll<HTMLElement>(".financial").forEach((financial) => {
@@ -144,6 +146,9 @@ const financialData = await getFinancialProjections();
 </script>
 
 <style>
+.financial-container {
+  container-type: inline-size;
+}
   @layer components {
     /* ========================================
        Financial section
@@ -349,39 +354,29 @@ const financialData = await getFinancialProjections();
     }
 
 
-    /* ========================================
-       Tablet
-    ======================================== */
-
-    @media (max-width: 900px) {
-      .financial-grid {
-        --cards-visible: 2;
-      }
-    }
-
-
-    /* ========================================
-       Mobile
-    ======================================== */
-
-    @media (max-width: 600px) {
-      .financial {
-        padding: var(--space-10) var(--space-5);
-      }
-
-      .financial-heading {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--space-6);
-      }
-
-      .financial h2 {
-        font-size: var(--font-size-xl);
-      }
-
-      .financial-grid {
-        --cards-visible: 1;
-      }
-    }
+    @container (max-width: 900px) {
+  .financial-grid {
+    --cards-visible: 2;
   }
+}
+
+@container (max-width: 600px) {
+  .financial {
+    padding: var(--space-10) var(--space-5);
+  }
+
+  .financial-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .financial h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .financial-grid {
+    --cards-visible: 1;
+  }
+}
 </style>
