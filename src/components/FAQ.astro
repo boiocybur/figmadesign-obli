@@ -153,27 +153,27 @@ const faq = await getFAQ();
    * Browsere med interpolate-size får animation.
    */
 
-  @supports (interpolate-size: allow-keywords) {
-    :global(html) {
-      interpolate-size: allow-keywords;
-    }
-
-    .answer {
-      height: 0;
-      overflow: hidden;
-      opacity: 0;
-
-      transition:
-        height 250ms ease,
-        opacity 200ms ease;
-    }
-
-    details[open] .answer {
-      height: auto;
-      opacity: 1;
-    }
+@supports (interpolate-size: allow-keywords) {
+  :global(html) {
+    interpolate-size: allow-keywords;
   }
 
+  details::details-content {
+    block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+
+    transition:
+      block-size 250ms ease,
+      opacity 200ms ease,
+      content-visibility 250ms allow-discrete;
+  }
+
+  details[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+}
 
   /* Mobile */
 

@@ -6,16 +6,22 @@ import { getServices } from "@lib/api";
 const services = await getServices();
 ---
 
-<div class="services">
-  {
-    services.map((service) => (
-      <ServiceCard service={service} />
-    ))
-  }
-</div>
+<section class="services-section">
+  <div class="services">
+    {
+      services.map((service) => (
+        <ServiceCard service={service} />
+      ))
+    }
+  </div>
+</section>
 
 <style>
   @layer components {
+    .services-section {
+      container-type: inline-size;
+    }
+
     .services {
       position: relative;
       z-index: 2;
@@ -29,7 +35,7 @@ const services = await getServices();
       padding-inline: var(--space-6);
     }
 
-    @media (max-width: 800px) {
+    @container (max-width: 800px) {
       .services {
         grid-template-columns: 1fr;
         margin-top: calc(var(--space-7) * -1);
