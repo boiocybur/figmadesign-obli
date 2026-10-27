@@ -21,30 +21,24 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <meta name="description" content={description} />
-
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
     <meta name="generator" content={Astro.generator} />
-
     <title>{title}</title>
-
     <Font cssVariable="--font-cabin" preload />
     <Font cssVariable="--font-lato" preload />
-
     <style is:inline>
-      @layer reset, global, tokens, components, overrides;
+      @layer reset, tokens, global, components, overrides;
     </style>
   </head>
-
   <body>
-    <Header />
-
-    <slot />
-
-    <Newsletter />
-
-    <Footer />
+    <div class="site-grid">
+      <Header />
+      <main class="page-grid">
+        <slot />
+      </main>
+      <Newsletter />
+      <Footer />
+    </div>
   </body>
 </html>
