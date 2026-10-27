@@ -1,6 +1,36 @@
-/* Override styles here */
-.flow {
-  > * + * {
-    margin-top: 1em;
-  }
+/* Makrolayout: samme indholdsbredde og margin på alle sider. */
+.site-grid {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(1rem, 1fr)
+    [content-start] minmax(0, var(--content-width))
+    [content-end] minmax(1rem, 1fr)
+    [full-end];
+}
+
+.site-grid > * {
+  grid-column: full-start / full-end;
+}
+
+/* Siderne arver kolonnerne fra sitets makrogrid. */
+.page-grid {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+/* Sektioner kan have baggrund i fuld bredde. */
+.page-grid > :is(section, article, div) {
+  grid-column: full-start / full-end;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+/* Indholdet følger den samme centrale kolonne. */
+.page-grid > :is(section, article, div) > * {
+  grid-column: content-start / content-end;
+  min-width: 0;
+}
+
+.page-grid > .about-team {
+  grid-column: content-start / content-end;
 }
