@@ -1,52 +1,48 @@
 html {
   font-family: var(--font-lato);
 }
+
 h1, h2, h3 {
   font-family: var(--font-cabin);
 }
 
-/* Shared full-bleed / content column lines for the entire Astro site. */
+/* Makrolayout: samme indholdsbredde på alle sider. */
 .site-grid {
-  --macro-gutter: clamp(1rem, 4vw, 3rem);
   display: grid;
   grid-template-columns:
-    [full-start] minmax(var(--macro-gutter), 1fr)
-    [content-start] repeat(12, minmax(0, calc(min(var(--content-width), 100vw - 2 * var(--macro-gutter)) / 12)))
-    [content-end] minmax(var(--macro-gutter), 1fr)
-    [full-end];
-  align-content: start;
-  min-block-size: 100svh;
+    minmax(1rem, 1fr)
+    minmax(0, var(--content-width))
+    minmax(1rem, 1fr);
 }
+
 .site-grid > * {
-  grid-column: full-start / full-end;
+  grid-column: 1 / -1;
 }
+
+/* Sider og sektioner genbruger de tre kolonner. */
+.page-grid,
+.page-grid > section {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
 .page-grid {
-  display: grid;
-  grid-template-columns: subgrid;
-  align-content: start;
+  grid-column: 1 / -1;
 }
-.page-grid > * {
-  grid-column: full-start / full-end;
+
+.page-grid > section {
+  grid-column: 1 / -1;
 }
-/* Macro sections inherit the columns rather than recreate their own tracks. */
-.page-grid > :is(section, article, div):not(.about-team) {
-  display: grid;
-  grid-template-columns: subgrid;
+
+/* Indhold ligger i den midterste kolonne. */
+.page-grid > section > * {
+  grid-column: 2;
+  min-width: 0;
 }
-/* Their immediate children occupy the shared content lines. */
-.page-grid > :is(section, article, div):not(.about-team) > * {
-  grid-column: content-start / content-end;
-  min-inline-size: 0;
-}
-/* Some components have a local card/hero grid within their macro wrapper. */
+
+/* Sektioner der allerede har deres eget indre 2-kolonnelayout. */
 .page-grid > .about-team {
-  grid-column: content-start / content-end;
-  min-inline-size: 0;
-  inline-size: 100%;
-}
-.page-grid > .hero > .services-section {
-  grid-column: content-start / content-end;
-}
-@media (max-width: 40rem) {
-  .site-grid { --macro-gutter: 1rem; }
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  grid-column: 2;
 }
