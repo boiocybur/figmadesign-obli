@@ -1,92 +1,52 @@
 html {
   font-family: var(--font-lato);
 }
-
 h1, h2, h3 {
   font-family: var(--font-cabin);
 }
 
-/* One sitewide macro layout: full-bleed tracks + twelve shared content tracks. */
+/* Shared full-bleed / content column lines for the entire Astro site. */
 .site-grid {
   --macro-gutter: clamp(1rem, 4vw, 3rem);
   display: grid;
   grid-template-columns:
     [full-start] minmax(var(--macro-gutter), 1fr)
-    [content-start] repeat(12, minmax(0, calc(var(--content-width) / 12)))
+    [content-start] repeat(12, minmax(0, calc(min(var(--content-width), 100vw - 2 * var(--macro-gutter)) / 12)))
     [content-end] minmax(var(--macro-gutter), 1fr)
     [full-end];
   align-content: start;
   min-block-size: 100svh;
 }
-
 .site-grid > * {
   grid-column: full-start / full-end;
 }
-
-/* Page content inherits the same tracks, rather than declaring a second grid. */
 .page-grid {
   display: grid;
   grid-template-columns: subgrid;
   align-content: start;
 }
-
-/* Page-level sections share the twelve tracks. Backgrounds can remain full bleed. */
-.page-grid > :is(section, article, div) {
+.page-grid > * {
   grid-column: full-start / full-end;
+}
+/* Macro sections inherit the columns rather than recreate their own tracks. */
+.page-grid > :is(section, article, div):not(.about-team) {
   display: grid;
   grid-template-columns: subgrid;
 }
-
-/* Align the existing component wrappers without changing their internal design. */
-.page-grid > :is(section, article, div) > :is(
-  .hero-inner,
-  .expect-inner,
-  .experience-inner,
-  .values-container,
-  .contact__inner,
-  .financial,
-  .vision-content,
-  .vision-stats,
-  .about-team__intro,
-  .about-team__members,
-  .faq-header,
-  .questions,
-  .services
-) {
+/* Their immediate children occupy the shared content lines. */
+.page-grid > :is(section, article, div):not(.about-team) > * {
+  grid-column: content-start / content-end;
+  min-inline-size: 0;
+}
+/* Some components have a local card/hero grid within their macro wrapper. */
+.page-grid > .about-team {
   grid-column: content-start / content-end;
   min-inline-size: 0;
   inline-size: 100%;
 }
-
-/* All children of page-level section wrappers must have a deliberate placement. */
-.page-grid > .hero > :is(.hero-inner, .services-section) {
+.page-grid > .hero > .services-section {
   grid-column: content-start / content-end;
 }
-
-.page-grid > .financial-container > .financial {
-  grid-column: content-start / content-end;
-  min-inline-size: 0;
-}
-
-.page-grid > .about > *,
-.page-grid > .newsletter > * {
-  grid-column: content-start / content-end;
-}
-
-.page-grid > .about-team {
-  grid-column: full-start / full-end;
-}
-
-.page-grid > .about-team > * {
-  min-inline-size: 0;
-}
-
-.page-grid > .faq > * {
-  grid-column: content-start / content-end;
-}
-
 @media (max-width: 40rem) {
-  .site-grid {
-    --macro-gutter: 1rem;
-  }
+  .site-grid { --macro-gutter: 1rem; }
 }
