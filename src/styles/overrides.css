@@ -34,3 +34,31 @@
 .page-grid > .about-team {
   grid-column: content-start / content-end;
 }
+
+
+/*
+ * Sektioner med deres egen indre container skal spænde over hele
+ * sidebredden. Deres indhold centreres inde i komponenten i stedet
+ * for at blive placeret i makrogrid'ets indholdskolonne to gange.
+ */
+.page-grid > .financial-container,
+.page-grid > .values {
+  display: block;
+  grid-column: full-start / full-end;
+  min-width: 0;
+}
+
+/* Team-siden er et indlejret <main> og skal eksplicit i midterkolonnen. */
+.page-grid > .team-page {
+  grid-column: content-start / content-end;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* About: Our Team bruger sit eget todelte grid i midterkolonnen. */
+.page-grid > .about-team {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
