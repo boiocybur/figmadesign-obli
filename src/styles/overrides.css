@@ -62,3 +62,22 @@
   min-width: 0;
   box-sizing: border-box;
 }
+
+/* About / Our Team: behold sektionens eget to-kolonne-layout.
+   Det generelle page-grid må ikke placere begge børn i samme kolonne. */
+.page-grid > .about-team {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.5fr);
+  align-items: start;
+}
+
+.page-grid > .about-team > .about-team__intro,
+.page-grid > .about-team > .about-team__members {
+  grid-column: auto;
+  min-width: 0;
+}
+
+@media (max-width: 800px) {
+  .page-grid > .about-team {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
