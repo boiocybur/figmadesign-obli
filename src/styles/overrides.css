@@ -81,3 +81,20 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* FAQ: centreret, kompakt kort i stedet for full-width subgrid. */
+.page-grid > .faq {
+  grid-column: content-start / content-end;
+  display: block;
+  box-sizing: border-box;
+  width: min(100%, 800px);
+  margin: var(--space-10) auto;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-secondary);
+}
+
+@media (max-width: 600px) {
+  .page-grid > .faq {
+    margin-block: var(--space-7);
+  }
+}
